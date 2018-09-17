@@ -13,6 +13,16 @@ variable "private_subnet_cidr" {
   default     = "10.0.2.0/24"
 }
 
+variable "datastore_subnet_cidr" {
+  description = "CIDR for the nsi subnet"
+  default     = "10.0.3.0/24"
+}
+
+variable "nsi_subnet_cidr" {
+  description = "CIDR for the nsi subnet"
+  default     = "10.0.4.0/24"
+}
+
 variable "aws_az_private" {
   description = "AZ for Private Subnet"
   default     = "eu-west-3b"

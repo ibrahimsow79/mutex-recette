@@ -1,5 +1,3 @@
-
-
 module "ami" {
   source = "../ec2discovery"
 }
@@ -14,9 +12,9 @@ resource "aws_instance" "backend" {
   source_dest_check      = false
 
   tags {
-    name = "backend",
-    location = "paris",
+    Name          = "${var.name}"
+    location      = "paris"
     environnement = "dev"
-    client = "mutex"
+    client        = "mutex"
   }
 }

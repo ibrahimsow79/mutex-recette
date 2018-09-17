@@ -28,28 +28,26 @@ variable "ami" {
   default     = "ami-4fffc834"
 }
 
-
-
-variable "sgweb_id" {
-  description = "Security Group Web Identifier"
+variable "sg_bastion_id" {
+  description = "Security Group Bastion Identifier"
 }
 
+variable "public_subnet_id" {}
 
-variable "public_subnet_id" {
-}
+variable "private_subnet_id" {}
 
-
-variable "private_subnet_id" {
-}
-
-variable "sg_sgbd_id" {
-}
+variable "sg_sgbd_id" {}
 
 variable "instance_type" {
   description = "Instance Type"
-  default = "t2.micro"
+  default     = "t2.micro"
 }
 
 variable "key_pair" {
-  description ="Identifier of the key pair used to connect to root"
+  description = "Identifier of the key pair used to connect to root"
+}
+
+variable "name" {
+  description = "Name of the EC2 Instance"
+  default     = "backend"
 }

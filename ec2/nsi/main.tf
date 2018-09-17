@@ -1,22 +1,17 @@
-
-
-module "ami" {
-  source = "../ec2discovery"
-}
-
-# Define database inside the private subnet
-resource "aws_instance" "backend" {
-  ami                    = "${module.ami.ami_id}"
+resource "aws_instance" "nsi-epargne" {
+  ami                    = "${var.ami}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key_pair}"
-  subnet_id              = "${var.private_subnet_id}"
-  vpc_security_group_ids = ["${var.sg_sgbd_id}"]
+  subnet_id              = "${var.subnet_nsi_id}"
+  vpc_security_group_ids = ["${var.sg_nsi_id}"]
   source_dest_check      = false
 
+  private_ip = "${var.private_ip}"
+
   tags {
-    name = "backend",
-    location = "paris",
+    name          = "NSI Epargne"
+    location      = "paris"
     environnement = "dev"
-    client = "mutex"
+    client        = "mutex"
   }
 }

@@ -1,34 +1,54 @@
-
-
 # Define our VPC
 resource "aws_vpc" "default" {
   cidr_block           = "${var.vpc_cidr}"
   enable_dns_hostnames = true
 
   tags {
-    Name = "test-vpc"
+    Name          = "Mutex-Dev-vpc"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
 # Define the public subnet
-resource "aws_subnet" "public-subnet" {
+resource "aws_subnet" "bastion-public-subnet" {
   vpc_id            = "${aws_vpc.default.id}"
   cidr_block        = "${var.public_subnet_cidr}"
   availability_zone = "${var.aws_az_public}"
 
   tags {
-    Name = "Web Public Subnet"
+    Name          = "Bastion Public Subnet"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
-# Define the private subnet
-resource "aws_subnet" "private-subnet" {
+# Define the private subnet for API
+resource "aws_subnet" "api-private-subnet" {
   vpc_id            = "${aws_vpc.default.id}"
   cidr_block        = "${var.private_subnet_cidr}"
   availability_zone = "${var.aws_az_private}"
 
   tags {
-    Name = "Database Private Subnet"
+    Name          = "api private subnet"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
+}
+
+resource "aws_subnet" "nsi-private-subnet" {
+  vpc_id            = "${aws_vpc.default.id}"
+  cidr_block        = "${var.nsi_subnet_cidr}"
+  availability_zone = "${var.aws_az_private}"
+
+  tags {
+    Name          = "nsi private subnet"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
@@ -37,7 +57,10 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.default.id}"
 
   tags {
-    Name = "VPC IGW"
+    Name          = "VPC IGW"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
@@ -51,13 +74,16 @@ resource "aws_route_table" "web-public-rt" {
   }
 
   tags {
-    Name = "Public Subnet RT"
+    Name          = "Public Subnet RT"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
 # Assign the route table to the public Subnet
 resource "aws_route_table_association" "web-public-rt" {
-  subnet_id      = "${aws_subnet.public-subnet.id}"
+  subnet_id      = "${aws_subnet.bastion-public-subnet.id}"
   route_table_id = "${aws_route_table.web-public-rt.id}"
 }
 
@@ -69,32 +95,38 @@ resource "aws_eip" "nat-gateway-api" {
 
 resource "aws_nat_gateway" "nat-gateway" {
   allocation_id = "${aws_eip.nat-gateway-api.id}"
-  subnet_id     = "${aws_subnet.public-subnet.id}"
+  subnet_id     = "${aws_subnet.bastion-public-subnet.id}"
 }
-
 
 resource "aws_route_table" "private-subnet-rt" {
   vpc_id = "${aws_vpc.default.id}"
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = "${aws_nat_gateway.nat-gateway.id}"
   }
 
   tags {
-    Name = "Private Subnet RT"
+    Name          = "Private Subnet RT"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
 resource "aws_route_table_association" "private-subnet-rt" {
-  subnet_id      = "${aws_subnet.private-subnet.id}"
+  subnet_id      = "${aws_subnet.api-private-subnet.id}"
   route_table_id = "${aws_route_table.private-subnet-rt.id}"
 }
 
+resource "aws_route_table_association" "nsi-subnet-rt" {
+  subnet_id      = "${aws_subnet.nsi-private-subnet.id}"
+  route_table_id = "${aws_route_table.private-subnet-rt.id}"
+}
 
 # Define the security group for public subnet
-resource "aws_security_group" "sgweb" {
-  name        = "vpc_test_web"
+resource "aws_security_group" "sg_bastion" {
+  name        = "sg_bastion_web"
   description = "Allow incoming HTTP connections & SSH access"
 
   ingress {
@@ -125,32 +157,27 @@ resource "aws_security_group" "sgweb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-
 
   vpc_id = "${aws_vpc.default.id}"
 
   tags {
-    Name = "Bastion SG"
+    Name          = "sg bastion"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }
 
-# Define the security group for private subnet
-resource "aws_security_group" "sgdb" {
-  name        = "sg_test_web"
+# Define the security group for api private subnet
+resource "aws_security_group" "sg_api" {
+  name        = "sg_api"
   description = "Allow traffic from public subnet"
-
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-  }
 
   ingress {
     from_port   = -1
@@ -166,17 +193,114 @@ resource "aws_security_group" "sgdb" {
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
 
- egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-
 
   vpc_id = "${aws_vpc.default.id}"
 
   tags {
-    Name = "Backend SG"
+    Name          = "sg api "
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
+}
+
+resource "aws_security_group" "sg_nsi" {
+  name        = "sg_nsi"
+  description = "Allow traffic from from API & RDP"
+
+  ingress {
+    from_port   = 3389
+    to_port     = 3389
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "RDP Port"
+  }
+
+  ingress {
+    from_port   = 1433
+    to_port     = 1433
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "SQL Server Port (access by tunnel)"
+  }
+
+  ingress {
+    from_port   = 1433
+    to_port     = 1433
+    protocol    = "tcp"
+    cidr_blocks = ["${var.private_subnet_cidr}"]
+    description = "SQL Server Port (access by API)"
+  }
+
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags {
+    Name          = "sg nsi epargne "
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
+}
+
+resource "aws_security_group" "sg_datastore" {
+  name        = "sg_datastore"
+  description = "Allow traffic from from API"
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["${var.private_subnet_cidr}"]
+    description = "MySQL Server Port"
+  }
+
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["${var.private_subnet_cidr}"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags {
+    Name          = "sg datastore epargne "
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
   }
 }

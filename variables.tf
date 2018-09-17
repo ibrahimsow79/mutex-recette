@@ -15,6 +15,11 @@ variable "aws_az_public" {
 
 variable "key_path" {
   description = "SSH Public Key path"
-  default     = "/home/nicolas/.ssh/id_rsa.pub"
+
+  #default     = "/home/nicolas/.ssh/id_rsa.pub"
+  default = ".ssh/id_rsa.pub"
 }
 
+variable "windows_key_path" {
+  default = ".ssh/win.pem"
+}

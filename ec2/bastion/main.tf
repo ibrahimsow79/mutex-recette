@@ -1,8 +1,6 @@
-
 module "ami" {
   source = "../ec2discovery"
 }
-
 
 # Define bastion inside the public subnet
 resource "aws_instance" "bastion" {
@@ -10,16 +8,15 @@ resource "aws_instance" "bastion" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key_pair}"
   subnet_id                   = "${var.public_subnet_id}"
-  vpc_security_group_ids      = ["${var.sgweb_id}"]
+  vpc_security_group_ids      = ["${var.sg_bastion_id}"]
   associate_public_ip_address = true
   source_dest_check           = false
   user_data                   = "${file("ec2/bastion/install.sh")}"
 
   tags {
-    name = "bastion",
-    location = "paris",
+    Name          = "Bastion"
+    location      = "paris"
     environnement = "dev"
-    client = "mutex"
+    client        = "mutex"
   }
 }
-
