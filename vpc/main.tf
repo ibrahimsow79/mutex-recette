@@ -39,6 +39,19 @@ resource "aws_subnet" "api-private-subnet" {
   }
 }
 
+resource "aws_subnet" "datastore-private-subnet" {
+  vpc_id            = "${aws_vpc.default.id}"
+  cidr_block        = "${var.datastore_subnet_cidr}"
+  availability_zone = "${var.aws_az_private}"
+
+  tags {
+    Name          = "datastore private subnet"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
+}
+
 resource "aws_subnet" "nsi-private-subnet" {
   vpc_id            = "${aws_vpc.default.id}"
   cidr_block        = "${var.nsi_subnet_cidr}"
@@ -121,6 +134,11 @@ resource "aws_route_table_association" "private-subnet-rt" {
 
 resource "aws_route_table_association" "nsi-subnet-rt" {
   subnet_id      = "${aws_subnet.nsi-private-subnet.id}"
+  route_table_id = "${aws_route_table.private-subnet-rt.id}"
+}
+
+resource "aws_route_table_association" "datastore-subnet-rt" {
+  subnet_id      = "${aws_subnet.datastore-private-subnet.id}"
   route_table_id = "${aws_route_table.private-subnet-rt.id}"
 }
 
@@ -272,6 +290,14 @@ resource "aws_security_group" "sg_datastore" {
     protocol    = "tcp"
     cidr_blocks = ["${var.private_subnet_cidr}"]
     description = "MySQL Server Port"
+  }
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "MySQL Server Port (For Developper)"
   }
 
   ingress {

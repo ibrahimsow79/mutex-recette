@@ -9,7 +9,7 @@ resource "aws_instance" "nsi-epargne" {
   private_ip = "${var.private_ip}"
 
   tags {
-    name          = "NSI Epargne"
+    Name          = "NSI Epargne"
     location      = "paris"
     environnement = "dev"
     client        = "mutex"

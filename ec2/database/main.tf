@@ -1,12 +1,12 @@
 # Define database inside the private subnet
-resource "aws_instance" "backend" {
+resource "aws_instance" "database" {
   ami                    = "${var.ami_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key_pair}"
   subnet_id              = "${var.private_subnet_id}"
-  vpc_security_group_ids = ["${var.sg_api_id}"]
+  vpc_security_group_ids = ["${var.sg_sgbd_id}"]
   source_dest_check      = false
-  user_data              = "${file("ec2/backend/install.sh")}"
+  user_data              = "${file("ec2/database/install.sh")}"
 
   ebs_block_device = {
     device_name           = "/dev/sdg"

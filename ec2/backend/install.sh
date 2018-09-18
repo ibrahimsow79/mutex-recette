@@ -1,9 +1,57 @@
 #!/bin/sh
 sudo yum update -y
-yum install -y httpd
-service start httpd
-chkonfig httpd on
-echo "<html><h1>Hello from Nico ^^</h2></html>" > /var/www/html/index.html
+
+#Mount Disk
+sudo mkfs -t ext4 /dev/xvdg
+sudo mkdir /data
+sudo mount /dev/xvdg /data
+sudo su
+sudo echo "/dev/xvdg    /data    ext4     defaults    0 2 " >> /etc/fstab
+
+#Installation openjdk 10
+sudo curl https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz -o openjdk-10.0.2_linux-x64_bin.tar.gz
+
+sudo tar zxf openjdk-10.0.2_linux-x64_bin.tar.gz -C /usr/local
+sudo mv /usr/local/jdk-10.0.2 /usr/local/jdk-10
+sudo alternatives --install /usr/bin/java java /usr/local/jdk-10/bin/java 1
+
+sudo alternatives --install /usr/bin/jar jar /usr/local/jdk-10/bin/jar 1
+sudo alternatives --install /usr/bin/javac javac /usr/local/jdk-10/bin/javac 1
+sudo alternatives --set jar /usr/local/jdk-10/bin/jar
+sudo alternatives --set javac /usr/local/jdk-10/bin/javac
+
+#Installation Docker
+sudo mkdir /data/docker
+sudo yum install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum-config-manager --enable docker-ce-edge
+sudo yum install docker-ce -y
+sudo systemctl start docker
+sudo systemctl stop docker
+sudo sed 's/ExecStart=\/usr\/bin\/dockerd/ExecStart=\/usr\/bin\/dockerd -g \/data\/docker/g' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
+sudo systemctl start docker
+#Installation Traefik
+cat > $PWD/traefik.toml << EOL
+################################################################ 
+# API and dashboard configuration
+################################################################
+[api]
+################################################################
+# Docker configuration backend
+################################################################
+[docker]
+domain = "docker.local"
+watch = true
+EOL 
+
+sudo docker run -d -p 8080:8080 -p 80:80 \
+-v $PWD/traefik.toml:/etc/traefik/traefik.toml \
+-v /var/run/docker.sock:/var/run/docker.sock \
+traefik
 
 
 sudo useradd nrousseau1 && mkdir /home/nrousseau1/.ssh && chown 700 /home/nrousseau1/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvwgaHUhGuH9F1/Wirck6dRFKzIrxv9GkUMZHyRN1aFeNA5QyVuZnQgOaDgEfwvHVOnCks9IRg0jD345wwY0l71hW/ULadCJFMhuz4gslsn/kz36mBT0xDe8E3+04MPqR7XylCVllDYZxtMJk0uwazotFPsyOnPGLJRzAVvuuzQick/Onm4gWBxbtpPeK+V3rGqVIYNC0k4LUwf5OHW0PVL4+4xekHHZ3j3++r6m6WgkpR7foVcIMQH1FkuNmybpCyfLHa5sVC7S16f9e+6EmaxiR8R1MwR7/zlY8AzFxrtEhn6NVhFTeNiQ1QJBGIo5VDhvCCmN/jdrhtpnVYwiswiWCeBIwlAoXdX7zgTGlHN5pmvosuW5OeK1uYHMaq/QlATROQkjMvER5cPF19eaoP8gNtpcxDNLZgjRJ6wbcdQcqbdtyM7kOfgfKkiXn7sji6pYZvg7wQsCtACnYhSKLoYfoXt+bj6TF/lWTsU7/FwgtyneAvtMAFDk39J8xeB8Ly/jxrH0xjNmHR+dP6BkGjW+U7sxIwwnTxc296S60k1QsKM6PZLWRZAqrQktGGlYDGhZxdKP0Yy0+nbf5n2z88f2AlCD4O9Ou2h+gAc0ah5BO5LRj6ULCrdsEk/Dx8TzuPp7MYDamn7TL9KJQrQxt09LsnBY9NDR6etVdLxf30Bw== nrousseau1" > /home/nrousseau1/.ssh/authorized_keys && chmod 600 /home/nrousseau1/.ssh/authorized_keys && chown -R nrousseau1:nrousseau1 /home/nrousseau1

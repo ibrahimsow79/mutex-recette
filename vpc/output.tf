@@ -21,3 +21,11 @@ output "sg_nsi" {
 output "subnet_nsi" {
   value = "${aws_subnet.nsi-private-subnet.id}"
 }
+
+output "subnet_datastore" {
+  value = "${aws_subnet.datastore-private-subnet.id}"
+}
+
+output "sg_datastore" {
+  value = "${aws_security_group.sg_datastore.id}"
+}

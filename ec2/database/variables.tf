@@ -36,7 +36,7 @@ variable "public_subnet_id" {}
 
 variable "private_subnet_id" {}
 
-variable "sg_api_id" {}
+variable "sg_sgbd_id" {}
 
 variable "instance_type" {
   description = "Instance Type"
