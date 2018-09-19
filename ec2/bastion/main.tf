@@ -11,6 +11,7 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids      = ["${var.sg_bastion_id}"]
   associate_public_ip_address = true
   source_dest_check           = false
+  iam_instance_profile        = "aws-s3-read-policy"
   user_data                   = "${file("ec2/bastion/install.sh")}"
 
   tags {

@@ -21,13 +21,15 @@ sudo yum install docker-ce -y
 sudo systemctl start docker
 sudo systemctl stop docker
 sudo sed 's/ExecStart=\/usr\/bin\/dockerd/ExecStart=\/usr\/bin\/dockerd -g \/data\/docker/g' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
+sudo mv /lib/systemd/system/docker.service.tmp  /lib/systemd/system/docker.service
 sudo systemctl start docker
 
+sudo systemctl enable docker
 
 #Installation Mysql
 sudo mkdir /data/mysql
 
-sudo docker run --name=mysql -d -p 3306:3306  \
+sudo docker run --restart=always --name=mysql -d -p 3306:3306  \
 -v /data/mysql:/var/lib/mysql \
 mysql/mysql-server:8.0.12
 

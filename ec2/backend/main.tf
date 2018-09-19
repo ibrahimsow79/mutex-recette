@@ -7,6 +7,8 @@ resource "aws_instance" "backend" {
   vpc_security_group_ids = ["${var.sg_api_id}"]
   source_dest_check      = false
   user_data              = "${file("ec2/backend/install.sh")}"
+  iam_instance_profile   = "aws-s3-read-policy"
+  private_ip             = "${var.private_ip}"
 
   ebs_block_device = {
     device_name           = "/dev/sdg"

@@ -64,3 +64,7 @@ variable "instance_name" {
 variable "ami_id" {
   default = "ami-262e9f5b"
 }
+
+variable "private_ip" {
+  default = "10.0.3.10"
+}

@@ -1,5 +1,5 @@
 output "bastion_ip" {
-  value = "${module.bastion.bastion_ip}"
+  value = "${aws_eip.bastion_public_ip.public_ip}"
 }
 
 output "backend1_ip" {

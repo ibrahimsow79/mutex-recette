@@ -211,6 +211,27 @@ resource "aws_security_group" "sg_api" {
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
+  ingress {
+    from_port   = 8090
+    to_port     = 8090
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

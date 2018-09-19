@@ -7,6 +7,7 @@ resource "aws_instance" "database" {
   vpc_security_group_ids = ["${var.sg_sgbd_id}"]
   source_dest_check      = false
   user_data              = "${file("ec2/database/install.sh")}"
+  private_ip             = "${var.private_ip}"
 
   ebs_block_device = {
     device_name           = "/dev/sdg"
