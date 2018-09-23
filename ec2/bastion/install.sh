@@ -14,5 +14,7 @@ sudo systemctl start nginx
 
 sudo aws s3 cp s3://mutex-configuration/nginx/tomcat1.conf /etc/nginx/default.d/tomcat1.conf
 sudo aws s3 cp s3://mutex-configuration/nginx/traefik.conf /etc/nginx/default.d/traefik.conf
+sudo aws s3 cp s3://mutex-configuration/nginx/nsi.conf /etc/nginx/default.d/nsi.conf
+
 sudo systemctl reload nginx
 
