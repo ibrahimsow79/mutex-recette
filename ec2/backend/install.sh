@@ -43,6 +43,8 @@ sudo python get-pip.py --user
 sudo /root/.local/bin/pip install awscli --upgrade --user
 sudo /root/.local/bin/aws s3 cp s3://mutex-configuration/tomcat/tomcat.service /etc/systemd/system/tomcat.service
 sudo /root/.local/bin/aws s3 cp s3://mutex-configuration/tomcat/tomcat-users.xml /data/server/apache-tomcat-8.5.34/conf/tomcat-users.xml
+sudo /root/.local/bin/aws s3 cp s3://mutex-configuration/tomcat/manager-context.xml /data/server/apache-tomcat-8.5.34/webapps/manager/META-INF/context.xml
+
 
 sudo systemctl daemon-reload
 sudo systemctl start tomcat
