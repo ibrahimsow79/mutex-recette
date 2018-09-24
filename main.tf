@@ -85,3 +85,16 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
+
+module "sso" {
+  source = "ec2/backend"
+
+  sg_bastion_id     = "${module.vpc.sg_bastion_id}"
+  sg_api_id         = "${module.vpc.sg_api}"
+  public_subnet_id  = "${module.vpc.public_subnet_id}"
+  private_subnet_id = "${module.vpc.private_subnet_id}"
+  key_pair          = "${aws_key_pair.default.id}"
+  name              = "Server SSO"
+  private_ip        = "10.0.2.6"
+  script            = "script/sso/install.sh"
+}

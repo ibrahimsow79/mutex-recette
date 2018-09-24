@@ -6,7 +6,7 @@ resource "aws_instance" "backend" {
   subnet_id              = "${var.private_subnet_id}"
   vpc_security_group_ids = ["${var.sg_api_id}"]
   source_dest_check      = false
-  user_data              = "${file("ec2/backend/install.sh")}"
+  user_data              = "${file(var.script)}"
   iam_instance_profile   = "aws-s3-read-policy"
   private_ip             = "${var.private_ip}"
 
