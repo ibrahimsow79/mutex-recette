@@ -14,7 +14,7 @@ resource "aws_instance" "backend" {
     device_name           = "/dev/sdg"
     volume_size           = "${var.ebs_size}"
     volume_type           = "gp2"
-    delete_on_termination = true
+    delete_on_termination = "${var.delete_on_terminaison}"
   }
 
   tags {

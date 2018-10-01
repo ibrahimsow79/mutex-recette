@@ -29,3 +29,11 @@ output "subnet_datastore" {
 output "sg_datastore" {
   value = "${aws_security_group.sg_datastore.id}"
 }
+
+output "subnet_ci" {
+  value = "${aws_subnet.ci-private-subnet.id}"
+}
+
+output "sg_ci" {
+  value = "${aws_security_group.sg_ci.id}"
+}

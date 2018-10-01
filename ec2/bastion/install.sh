@@ -16,6 +16,8 @@ sudo aws s3 cp s3://mutex-configuration/nginx/tomcat1.conf /etc/nginx/default.d/
 sudo aws s3 cp s3://mutex-configuration/nginx/traefik.conf /etc/nginx/default.d/traefik.conf
 sudo aws s3 cp s3://mutex-configuration/nginx/nsi.conf /etc/nginx/default.d/nsi.conf
 sudo aws s3 cp s3://mutex-configuration/nginx/keycloak.conf /etc/nginx/default.d/keycloak.conf
+sudo aws s3 cp s3://mutex-configuration/nginx/ci.conf /etc/nginx/default.d/ci.conf
+sudo aws s3 cp s3://mutex-configuration/nginx/nginx.conf /etc/nginx/nginx.conf
 
 sudo systemctl reload nginx
 

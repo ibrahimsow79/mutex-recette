@@ -72,3 +72,7 @@ variable "private_ip" {
 variable "script" {
   default = "ec2/backend/install.sh"
 }
+
+variable "delete_on_terminaison" {
+  default = true
+}

@@ -65,6 +65,19 @@ resource "aws_subnet" "nsi-private-subnet" {
   }
 }
 
+resource "aws_subnet" "ci-private-subnet" {
+  vpc_id            = "${aws_vpc.default.id}"
+  cidr_block        = "${var.ci_subnet_cidr}"
+  availability_zone = "${var.aws_az_private}"
+
+  tags {
+    Name          = "ci private subnet"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
+}
+
 # Define the internet gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.default.id}"
@@ -139,6 +152,11 @@ resource "aws_route_table_association" "nsi-subnet-rt" {
 
 resource "aws_route_table_association" "datastore-subnet-rt" {
   subnet_id      = "${aws_subnet.datastore-private-subnet.id}"
+  route_table_id = "${aws_route_table.private-subnet-rt.id}"
+}
+
+resource "aws_route_table_association" "ci-subnet-rt" {
+  subnet_id      = "${aws_subnet.ci-private-subnet.id}"
   route_table_id = "${aws_route_table.private-subnet-rt.id}"
 }
 
@@ -298,11 +316,27 @@ resource "aws_security_group" "sg_nsi" {
   }
 
   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "Http port for IIS"
+  }
+
+  ingress {
     from_port   = 1433
     to_port     = 1433
     protocol    = "tcp"
     cidr_blocks = ["${var.private_subnet_cidr}"]
     description = "SQL Server Port (access by API)"
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["${var.private_subnet_cidr}"]
+    description = "Http port for IIS"
   }
 
   ingress {
@@ -374,6 +408,66 @@ resource "aws_security_group" "sg_datastore" {
 
   tags {
     Name          = "sg datastore epargne "
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
+}
+
+resource "aws_security_group" "sg_ci" {
+  name        = "sg_ci"
+  description = "Allow traffic from DMZ"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "Jenkins Port"
+  }
+
+  ingress {
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "Nexus Port"
+  }
+
+  ingress {
+    from_port   = 8082
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "gitlab Port"
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = "Traefik"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags {
+    Name          = "sg ci "
     location      = "paris"
     environnement = "dev"
     client        = "mutex"

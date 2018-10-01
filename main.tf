@@ -52,7 +52,21 @@ module "backend1" {
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Server API 1"
   private_ip        = "10.0.2.10"
+  instance_type     = "t2.medium"
 }
+
+#module "backend2" {
+#  source = "ec2/backend"
+
+#  sg_bastion_id     = "${module.vpc.sg_bastion_id}"
+#  sg_api_id         = "${module.vpc.sg_api}"
+#  public_subnet_id  = "${module.vpc.public_subnet_id}"
+#  private_subnet_id = "${module.vpc.private_subnet_id}"
+#  key_pair          = "${aws_key_pair.default.id}"
+#  name              = "Server API 2"
+#  private_ip        = "10.0.2.11"
+#  instance_type     = "t2.medium"
+#}
 
 module "gateway" {
   source = "ec2/backend"
@@ -97,4 +111,21 @@ module "sso" {
   name              = "Server SSO"
   private_ip        = "10.0.2.6"
   script            = "script/sso/install.sh"
+  instance_type     = "t2.medium"
+}
+
+module "ci" {
+  source = "ec2/backend"
+
+  sg_bastion_id         = "${module.vpc.sg_bastion_id}"
+  sg_api_id             = "${module.vpc.sg_ci}"
+  public_subnet_id      = "${module.vpc.public_subnet_id}"
+  private_subnet_id     = "${module.vpc.subnet_ci}"
+  key_pair              = "${aws_key_pair.default.id}"
+  name                  = "Server CI"
+  private_ip            = "10.0.5.5"
+  script                = "script/ci/install.sh"
+  delete_on_terminaison = false
+  instance_type         = "t2.medium"
+  ebs_size              = "200"
 }

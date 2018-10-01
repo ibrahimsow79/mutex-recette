@@ -23,6 +23,11 @@ variable "nsi_subnet_cidr" {
   default     = "10.0.4.0/24"
 }
 
+variable "ci_subnet_cidr" {
+  description = "CIDR for the ci subnet"
+  default     = "10.0.5.0/24"
+}
+
 variable "aws_az_private" {
   description = "AZ for Private Subnet"
   default     = "eu-west-3b"
