@@ -19,5 +19,9 @@ sudo aws s3 cp s3://mutex-configuration/nginx/keycloak.conf /etc/nginx/default.d
 sudo aws s3 cp s3://mutex-configuration/nginx/ci.conf /etc/nginx/default.d/ci.conf
 sudo aws s3 cp s3://mutex-configuration/nginx/nginx.conf /etc/nginx/nginx.conf
 
+
+sudo mkdir /etc/ssl/private
+sudo openssl req -x509 -nodes -days 900 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=FR/ST=Paris/L=Paris/O=Global Security/OU=Nord Mut Department/CN=gfi.Fr"
+
 sudo systemctl reload nginx
 
