@@ -207,8 +207,7 @@ resource "aws_security_group" "sg_bastion" {
     cidr_blocks = ["195.25.17.82/32"]
   }
 
-
- ingress {
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -221,7 +220,6 @@ resource "aws_security_group" "sg_bastion" {
     protocol    = "tcp"
     cidr_blocks = ["217.174.200.249/32"]
   }
-
 
   ingress {
     from_port   = -1
@@ -470,6 +468,22 @@ resource "aws_security_group" "sg_ci" {
     protocol    = "tcp"
     cidr_blocks = ["${var.public_subnet_cidr}"]
     description = "gitlab Port"
+  }
+
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = ""
+  }
+
+  ingress {
+    from_port   = 9092
+    to_port     = 9092
+    protocol    = "tcp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+    description = ""
   }
 
   ingress {

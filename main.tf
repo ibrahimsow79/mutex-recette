@@ -129,3 +129,19 @@ module "ci" {
   instance_type         = "t2.medium"
   ebs_size              = "200"
 }
+
+module "gitlab" {
+  source = "ec2/backend"
+
+  sg_bastion_id         = "${module.vpc.sg_bastion_id}"
+  sg_api_id             = "${module.vpc.sg_ci}"
+  public_subnet_id      = "${module.vpc.public_subnet_id}"
+  private_subnet_id     = "${module.vpc.subnet_ci}"
+  key_pair              = "${aws_key_pair.default.id}"
+  name                  = "Server Gitlab"
+  private_ip            = "10.0.5.6"
+  script                = "script/gitlab/install.sh"
+  delete_on_terminaison = false
+  instance_type         = "t2.medium"
+  ebs_size              = "100"
+}
