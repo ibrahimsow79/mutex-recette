@@ -117,6 +117,12 @@ resource "aws_route_table_association" "web-public-rt" {
 resource "aws_eip" "nat-gateway-api" {
   vpc                       = true
   associate_with_private_ip = "10.0.1.5"
+  tags {
+    Name          = "EIP for NAT"
+    location      = "paris"
+    environnement = "dev"
+    client        = "mutex"
+  }
 }
 
 resource "aws_nat_gateway" "nat-gateway" {

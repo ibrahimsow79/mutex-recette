@@ -30,7 +30,8 @@ variable "ami" {
 
 variable "key_path" {
   description = "SSH Public Key path"
-  default     = "/home/nicolas/.ssh/id_rsa.pub"
+  #default     = "/home/nicolas/.ssh/id_rsa.pub"
+  default = "C:\\Users\\isow\\.ssh\\id_rsa.pub"
 }
 
 variable "sg_bastion_id" {

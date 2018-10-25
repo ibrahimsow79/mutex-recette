@@ -1,6 +1,8 @@
 # Define AWS as our provider
 provider "aws" {
   region = "${var.aws_region}"
+  shared_credentials_file = "c/Users/isow/.aws/credentials"
+  profile = "mutex-er-admin"
 }
 
 # Define SSH key pair for our instances
@@ -19,6 +21,8 @@ module "vpc" {
   aws_az_private = "${var.aws_az_private}"
   aws_az_public  = "${var.aws_az_public}"
 }
+
+
 
 module "bastion" {
   source = "ec2/bastion"
@@ -42,6 +46,7 @@ resource "aws_eip" "bastion_public_ip" {
   }
 }
 
+
 module "backend1" {
   source = "ec2/backend"
 
@@ -54,6 +59,7 @@ module "backend1" {
   private_ip        = "10.0.2.10"
   instance_type     = "t2.medium"
 }
+
 
 #module "backend2" {
 #  source = "ec2/backend"
@@ -80,6 +86,7 @@ module "gateway" {
   private_ip        = "10.0.2.5"
 }
 
+
 module "database" {
   source = "ec2/database"
 
@@ -92,6 +99,7 @@ module "database" {
   private_ip        = "10.0.3.10"
 }
 
+/* multi line comment 
 module "nsi" {
   source = "ec2/nsi"
 
@@ -99,6 +107,8 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
+*/
+
 
 module "sso" {
   source = "ec2/backend"
@@ -113,6 +123,7 @@ module "sso" {
   script            = "script/sso/install.sh"
   instance_type     = "t2.medium"
 }
+
 
 module "ci" {
   source = "ec2/backend"
