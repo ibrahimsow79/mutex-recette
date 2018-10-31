@@ -1,6 +1,6 @@
 variable "ami" {
   description = "Windows NSI Epargne"
-  default     = "ami-05d3b9ef5d35a45e4"
+  default     = "ami-0aba22e4ae1962730"
 }
 
 variable "subnet_nsi_id" {
