@@ -37,3 +37,7 @@ variable "aws_az_public" {
   description = "AZ for Public Subnet"
   default     = "eu-west-3b"
 }
+variable "env" {
+ description = "environnement : prod, dev, int,rec"
+ default = "dev"
+}

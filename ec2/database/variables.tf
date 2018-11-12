@@ -28,6 +28,11 @@ variable "ami" {
   default     = "ami-4fffc834"
 }
 
+variable "env" {
+ description = "environnement : prod, dev, int,rec"
+ default = "dev"
+}
+
 variable "sg_bastion_id" {
   description = "Security Group Bastion Identifier"
 }

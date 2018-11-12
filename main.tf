@@ -1,8 +1,8 @@
 # Define AWS as our provider
 provider "aws" {
   region = "${var.aws_region}"
-  shared_credentials_file = "c/Users/isow/.aws/credentials"
-  profile = "mutex-er-admin"
+  shared_credentials_file = "${var.my_credentials}"
+  profile = "${var.my_profile}"
 }
 
 # Define SSH key pair for our instances
@@ -11,12 +11,12 @@ resource "aws_key_pair" "default" {
   public_key = "${file("${var.key_path}")}"
 }
 
-# Mettre le fichier tfstate sur S3 : mutex-er-admin-configuration
+# Mettre le fichier tfstate sur S3 : mutex-er-admin- - Terraform ne permet dpas la variabilisation du backend
 terraform {
   backend "s3" {
   bucket = "mutex-er-admin-configuration"
   key    = "mutex/main/terraform.tfstate"
-  region = "eu-west-3"
+  region =  "eu-west-3"
   }
 }
 data "aws_iam_role" "iam-read-s3" {
@@ -51,11 +51,10 @@ resource "aws_eip" "bastion_public_ip" {
   tags {
     Name          = "EIP Bastion"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
-
 
 module "backend1" {
   source = "ec2/backend"
@@ -70,7 +69,6 @@ module "backend1" {
   instance_type     = "t2.medium"
 }
 
-
 #module "backend2" {
 #  source = "ec2/backend"
 
@@ -84,6 +82,7 @@ module "backend1" {
 #  instance_type     = "t2.medium"
 #}
 
+/* get rid fo this this module
 module "gateway" {
   source = "ec2/backend"
 
@@ -95,7 +94,7 @@ module "gateway" {
   name              = "Gateway API"
   private_ip        = "10.0.2.5"
 }
-
+*/
 
 module "database" {
   source = "ec2/database"
@@ -108,7 +107,8 @@ module "database" {
   name              = "Database 1"
   private_ip        = "10.0.3.10"
 }
- 
+
+/* get rid of this module 
 module "nsi" {
   source = "ec2/nsi"
 
@@ -116,7 +116,9 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
+*/
 
+/* get rid of this module
 module "sso" {
   source = "ec2/backend"
 
@@ -130,7 +132,7 @@ module "sso" {
   script            = "script/sso/install.sh"
   instance_type     = "t2.medium"
 }
-
+*/
 
 module "ci" {
   source = "ec2/backend"
@@ -148,6 +150,7 @@ module "ci" {
   ebs_size              = "200"
 }
 
+/*  get rid of this module
 module "gitlab" {
   source = "ec2/backend"
 
@@ -163,3 +166,4 @@ module "gitlab" {
   instance_type         = "t2.medium"
   ebs_size              = "100"
 }
+*/

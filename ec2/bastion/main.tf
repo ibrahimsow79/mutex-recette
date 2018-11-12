@@ -17,7 +17,7 @@ resource "aws_instance" "bastion" {
   tags {
     Name          = "Bastion"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }

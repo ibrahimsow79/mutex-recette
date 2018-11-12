@@ -76,3 +76,7 @@ variable "script" {
 variable "delete_on_terminaison" {
   default = true
 }
+variable "env" {
+ description = "environnement : prod, dev, int,rec"
+ default = "dev"
+}

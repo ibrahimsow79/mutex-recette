@@ -20,7 +20,7 @@ resource "aws_instance" "backend" {
   tags {
     Name          = "${var.name}"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }

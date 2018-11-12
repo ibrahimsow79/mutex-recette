@@ -25,3 +25,13 @@ variable "env" {
  description = "environnement : prod, dev, int,rec"
  default = "dev"
 }
+
+variable "my_credentials" {
+ description = " Credentials being used to connect to AWS"
+ default = "/c/Users/isow/.aws/credentials"
+ }
+ 
+variable "my_profile" {
+ description = " profile being used to connect to AWS"
+ default = "mutex-er-admin"
+ }

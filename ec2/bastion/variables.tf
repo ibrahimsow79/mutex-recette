@@ -52,3 +52,7 @@ variable "instance_type" {
 variable "key_pair" {
   description = "Identifier of the key pair used to connect to root"
 }
+variable "env" {
+ description = "environnement : prod, dev, int,rec"
+ default = "dev"
+}

@@ -6,7 +6,7 @@ resource "aws_vpc" "default" {
   tags {
     Name          = "Mutex-Dev-vpc"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -20,7 +20,7 @@ resource "aws_subnet" "bastion-public-subnet" {
   tags {
     Name          = "Bastion Public Subnet"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -34,7 +34,7 @@ resource "aws_subnet" "api-private-subnet" {
   tags {
     Name          = "api private subnet"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -47,7 +47,7 @@ resource "aws_subnet" "datastore-private-subnet" {
   tags {
     Name          = "datastore private subnet"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -60,7 +60,7 @@ resource "aws_subnet" "nsi-private-subnet" {
   tags {
     Name          = "nsi private subnet"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -73,7 +73,7 @@ resource "aws_subnet" "ci-private-subnet" {
   tags {
     Name          = "ci private subnet"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -85,7 +85,7 @@ resource "aws_internet_gateway" "gw" {
   tags {
     Name          = "VPC IGW"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -102,7 +102,7 @@ resource "aws_route_table" "web-public-rt" {
   tags {
     Name          = "Public Subnet RT"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -120,7 +120,7 @@ resource "aws_eip" "nat-gateway-api" {
   tags {
     Name          = "EIP for NAT"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -141,7 +141,7 @@ resource "aws_route_table" "private-subnet-rt" {
   tags {
     Name          = "Private Subnet RT"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
