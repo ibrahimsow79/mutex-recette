@@ -56,7 +56,6 @@ resource "aws_eip" "bastion_public_ip" {
   }
 }
 
-/* get rid of this module
 module "backend1" {
   source = "ec2/backend"
 
@@ -69,7 +68,6 @@ module "backend1" {
   private_ip        = "10.0.2.10"
   instance_type     = "t2.medium"
 }
-*/
 
 #module "backend2" {
 #  source = "ec2/backend"
@@ -84,7 +82,6 @@ module "backend1" {
 #  instance_type     = "t2.medium"
 #}
 
-/* get rid of this module
 module "gateway" {
   source = "ec2/backend"
 
@@ -96,9 +93,7 @@ module "gateway" {
   name              = "Gateway API"
   private_ip        = "10.0.2.5"
 }
-*/
 
-/* get rid of this module
 module "database" {
   source = "ec2/database"
 
@@ -110,7 +105,6 @@ module "database" {
   name              = "Database 1"
   private_ip        = "10.0.3.10"
 }
-*/
 
 /* get rid of this module 
 module "nsi" {
@@ -122,7 +116,6 @@ module "nsi" {
 }
 */
 
-/* get rid of this module
 module "sso" {
   source = "ec2/backend"
 
@@ -136,7 +129,6 @@ module "sso" {
   script            = "script/sso/install.sh"
   instance_type     = "t2.medium"
 }
-*/
 
 module "ci" {
   source = "ec2/backend"
@@ -154,7 +146,7 @@ module "ci" {
   ebs_size              = "200"
 }
 
-/*
+
 module "gitlab" {
   source = "ec2/backend"
 
@@ -170,4 +162,3 @@ module "gitlab" {
   instance_type         = "t2.medium"
   ebs_size              = "100"
 }
-*/
