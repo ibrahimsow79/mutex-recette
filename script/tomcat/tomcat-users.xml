@@ -5,6 +5,12 @@
   <role rolename="manager-jmx"/>
 
   <role rolename="manager-status"/>
+
+  <role rolename="probeuser" />
+  <role rolename="poweruser" />
+  <role rolename="poweruserplus" />
+
   <user username="tomcat" password="_]~K~mxL4_D_S!!" roles="standard, manager-gui"/>
   <user username="admin" password="_]~K~mxL4_D_S!!" roles="manager-ui,  manager-script"/>
+  <user username="probe" password="_]~K~mxLgfy_D_jS!!" roles="probeuser"/>
 </tomcat-users>
