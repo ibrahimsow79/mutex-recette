@@ -55,8 +55,8 @@ resource "aws_eip" "bastion_public_ip" {
     client        = "mutex"
   }
 }
-/*
 
+/* get rid of this module
 module "backend1" {
   source = "ec2/backend"
 
@@ -84,7 +84,7 @@ module "backend1" {
 #  instance_type     = "t2.medium"
 #}
 
-/*
+/* get rid of this module
 module "gateway" {
   source = "ec2/backend"
 
@@ -97,7 +97,8 @@ module "gateway" {
   private_ip        = "10.0.2.5"
 }
 */
-/*
+
+/* get rid of this module
 module "database" {
   source = "ec2/database"
 
@@ -136,7 +137,7 @@ module "sso" {
   instance_type     = "t2.medium"
 }
 */
-/*
+
 module "ci" {
   source = "ec2/backend"
 
@@ -152,7 +153,6 @@ module "ci" {
   instance_type         = "t2.medium"
   ebs_size              = "200"
 }
-*/
 
 /*
 module "gitlab" {
