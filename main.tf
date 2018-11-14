@@ -142,7 +142,7 @@ module "ci" {
   private_ip            = "10.0.5.5"
   script                = "script/ci/install.sh"
   delete_on_terminaison = false
-  instance_type         = "t2.medium"
+  instance_type         = "t2.large"
   ebs_size              = "200"
 }
 

@@ -5,6 +5,17 @@ sudo useradd isow && mkdir /home/isow/.ssh && chown 700 /home/isow/.ssh && echo 
 sudo useradd pparant && mkdir /home/pparant/.ssh && chown 700 /home/pparant/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA0xACzEmw2xS804LNXFAts14uRxb89E46hdrJd0sNlu9vWviSDXWfO9M9N2U9DtMVmy5oLGThziivlqftemOVvXj5Nnq0OfBk2UXFKiPpQtjsiiXyNW+5HrVew+e9wMkR+FyeTy8XhFicw9FgLroigSdo036OCSYFgLuOBfBCPDdqwhCaDy4PLCwi0uSW0ZWpYZXslTdnZd+4n7t71WscH2mgW9FQNej7W750nhc6vYWvqB4RURDFrXeAwgM1zJQtULHB0jsi0U3AStuXe9WupiJVtkQTVy3wldK7FSQEdoCmqS1kYW1r4GOy5LFC154Kc65qeR8bY7Hj1kUy11sUxQ== parant" > /home/pparant/.ssh/authorized_keys && chmod 600 /home/pparant/.ssh/authorized_keys && chown -R pparant:pparant /home/pparant
 sudo useradd nrousseau1 && mkdir /home/nrousseau1/.ssh && chown 700 /home/nrousseau1/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvwgaHUhGuH9F1/Wirck6dRFKzIrxv9GkUMZHyRN1aFeNA5QyVuZnQgOaDgEfwvHVOnCks9IRg0jD345wwY0l71hW/ULadCJFMhuz4gslsn/kz36mBT0xDe8E3+04MPqR7XylCVllDYZxtMJk0uwazotFPsyOnPGLJRzAVvuuzQick/Onm4gWBxbtpPeK+V3rGqVIYNC0k4LUwf5OHW0PVL4+4xekHHZ3j3++r6m6WgkpR7foVcIMQH1FkuNmybpCyfLHa5sVC7S16f9e+6EmaxiR8R1MwR7/zlY8AzFxrtEhn6NVhFTeNiQ1QJBGIo5VDhvCCmN/jdrhtpnVYwiswiWCeBIwlAoXdX7zgTGlHN5pmvosuW5OeK1uYHMaq/QlATROQkjMvER5cPF19eaoP8gNtpcxDNLZgjRJ6wbcdQcqbdtyM7kOfgfKkiXn7sji6pYZvg7wQsCtACnYhSKLoYfoXt+bj6TF/lWTsU7/FwgtyneAvtMAFDk39J8xeB8Ly/jxrH0xjNmHR+dP6BkGjW+U7sxIwwnTxc296S60k1QsKM6PZLWRZAqrQktGGlYDGhZxdKP0Yy0+nbf5n2z88f2AlCD4O9Ou2h+gAc0ah5BO5LRj6ULCrdsEk/Dx8TzuPp7MYDamn7TL9KJQrQxt09LsnBY9NDR6etVdLxf30Bw== nrousseau1" > /home/nrousseau1/.ssh/authorized_keys && chmod 600 /home/nrousseau1/.ssh/authorized_keys && chown -R nrousseau1:nrousseau1 /home/nrousseau1
 
+# Ajout des user isow et pparant dans les groupes wheel et adm
+sudo usermod -aG wheel isow
+sudo usermod -aG adm isow
+
+sudo usermod -aG wheel pparant
+sudo usermod -aG adm pparant
+
+# Ajout du groupe wheel pour faire un sudo sans qu'on leur réclame un password
+
+sudo echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+
 #Mount Disk
 sudo mkfs -t ext4 /dev/xvdg
 sudo mkdir /data
@@ -40,7 +51,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo curl -O https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py --user
 sudo /root/.local/bin/pip install awscli --upgrade --user
-sudo /root/.local/bin/aws s3 cp s3://mutex-configuration/sso/keycloak-postgres.yml /data/keycloak-postgres.yml
+sudo /root/.local/bin/aws s3 cp s3://mutex-er-admin-configuration/sso/keycloak-postgres.yml /data/keycloak-postgres.yml
 
 #Installation KeyCloak
 sudo /usr/local/bin/docker-compose -f /data/keycloak-postgres.yml up
