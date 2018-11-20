@@ -105,8 +105,7 @@ module "database" {
   name              = "Database 1"
   private_ip        = "10.0.3.10"
 }
-
-/* get rid of this module 
+ 
 module "nsi" {
   source = "ec2/nsi"
 
@@ -114,7 +113,6 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
-*/
 
 module "sso" {
   source = "ec2/backend"
