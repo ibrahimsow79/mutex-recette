@@ -1,0 +1,14 @@
+{
+	"_comment": "This is a comment",
+	"builders" : [{
+		"access_key" : "AKIAIDNJHCJBU4S6YPCA",
+		"secret_key" : "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",
+		"profile" : "mutex-er-admin",
+		"type" : "amazon-ebs",
+		"region" : "eu-west-3",
+		"source_ami" : "ami-08182c55a1c188dee",
+		"instance_type" : "t2.micro",
+		"ssh_username" : "ubuntu",
+		"ami_name" : "ami-isow-mutex"
+	}]
+}
