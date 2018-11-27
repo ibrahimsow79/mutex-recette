@@ -1,8 +1,8 @@
 {
 	"_comment": "This is a comment",
 	"builders" : [{
-		"access_key" : "AKIAIDNJHCJBU4S6YPCA",
-		"secret_key" : "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",
+		"access_key" : "",
+		"secret_key" : "",
 		"profile" : "mutex-er-admin",
 		"type" : "amazon-ebs",
 		"region" : "eu-west-3",
