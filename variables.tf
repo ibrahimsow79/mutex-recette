@@ -23,7 +23,7 @@ variable "windows_key_path" {
 }
 variable "env" {
  description = "environnement : prod, dev, int,rec"
- default = "dev"
+ default = "recette"
 }
 
 variable "my_credentials" {
@@ -33,5 +33,5 @@ variable "my_credentials" {
  
 variable "my_profile" {
  description = " profile being used to connect to AWS"
- default = "mutex-er-admin"
+ default = "mutex-er-recette"
  }

@@ -1,3 +1,4 @@
+/*
 output "sg_bastion_id" {
   value = "${aws_security_group.sg_bastion.id}"
 }
@@ -37,3 +38,4 @@ output "subnet_ci" {
 output "sg_ci" {
   value = "${aws_security_group.sg_ci.id}"
 }
+*/

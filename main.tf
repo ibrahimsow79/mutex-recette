@@ -11,17 +11,11 @@ resource "aws_key_pair" "default" {
   public_key = "${file("${var.key_path}")}"
 }
 
-# Mettre le fichier tfstate sur S3 : mutex-er-admin- - Terraform ne permet dpas la variabilisation du backend
-terraform {
-  backend "s3" {
-  bucket = "mutex-er-admin-configuration"
-  key    = "mutex/main/terraform.tfstate"
-  region =  "eu-west-3"
-  }
-}
+
 data "aws_iam_role" "iam-read-s3" {
   name = "aws-s3-read-policy"
 }
+
 # Ai rajouté les lignes pour variabilser les "availability zone" dans le script terraform
 data "aws_availability_zones" "available" {}
 
@@ -33,7 +27,7 @@ module "vpc" {
 }
 
 
-
+/*
 module "bastion" {
   source = "ec2/bastion"
 
@@ -160,3 +154,4 @@ module "gitlab" {
   instance_type         = "t2.medium"
   ebs_size              = "100"
 }
+*/
