@@ -4,7 +4,7 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags {
-    Name          = "Mutex-Dev-vpc"
+    Name          = "mutex-recette-vpc"
     location      = "paris"
     environnement = "${var.env}"
     client        = "mutex"

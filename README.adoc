@@ -31,3 +31,7 @@ CREATE USER 'developper'@'%' IDENTIFIED BY 'p@ssword?';
 GRANT ALL PRIVILEGES ON * . * TO 'developper'@'%';
 FLUSH PRIVILEGES;
 ----
+Changement de tout de l'adressage réseau nous passons de 10.0.0.0/16 à 10.50.0.0/16 pour le VPC.
+Discussion avec Renaud Bonjour le bloc 10.1.0.0/16 et + est utilisé en interne et m'a conseillé d'utiliser à partir de 10.50.0.0/16
+
+Dans les security group il faudra limiter les ports ssh et rdp aux deux IP publiques de Mutex : 62.129.10.227 ou 62.129.10.163

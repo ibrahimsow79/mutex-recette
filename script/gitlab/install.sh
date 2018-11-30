@@ -12,6 +12,9 @@ sudo usermod -aG adm isow
 sudo usermod -aG wheel pparant
 sudo usermod -aG adm pparant
 
+sudo usermod -aG wheel pparant
+sudo usermod -aG adm pparant
+
 # Ajout du groupe wheel pour faire un sudo sans qu'on leur réclame un password
 
 sudo echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers

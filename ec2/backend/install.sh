@@ -12,6 +12,9 @@ sudo usermod -aG adm isow
 sudo usermod -aG wheel pparant
 sudo usermod -aG adm pparant
 
+sudo usermod -aG wheel nrousseau1
+sudo usermod -aG adm nrousseau1
+
 # Ajout du groupe wheel pour faire un sudo sans qu'on leur réclame un password
 
 sudo echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
@@ -52,9 +55,9 @@ sudo mv /data/server/tomcat/conf/server.xml.tmp /data/server/tomcat/conf/server.
 sudo curl -O https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py --user
 sudo /root/.local/bin/pip install awscli --upgrade --user
-sudo /root/.local/bin/aws s3 cp s3://mutex-er-admin-configuration/tomcat/tomcat.service /etc/systemd/system/tomcat.service
-sudo /root/.local/bin/aws s3 cp s3://mutex-er-admin-configuration/tomcat/tomcat-users.xml /data/server/apache-tomcat-8.5.34/conf/tomcat-users.xml
-sudo /root/.local/bin/aws s3 cp s3://mutex-er-admin-configuration/tomcat/manager-context.xml /data/server/apache-tomcat-8.5.34/webapps/manager/META-INF/context.xml
+sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/tomcat.service /etc/systemd/system/tomcat.service
+sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/tomcat-users.xml /data/server/apache-tomcat-8.5.34/conf/tomcat-users.xml
+sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/manager-context.xml /data/server/apache-tomcat-8.5.34/webapps/manager/META-INF/context.xml
 
 
 sudo systemctl daemon-reload

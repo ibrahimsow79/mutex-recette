@@ -11,7 +11,7 @@ Environment=CATALINA_PID=/data/server/tomcat/temp/tomcat.pid
 Environment=CATALINA_HOME=/data/server/tomcat
 Environment=CATALINA_BASE=/data/server/tomcat
 Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
-Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=dev'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active="mutex-dev,filesystem"'
 
 ExecStart=/data/server/tomcat/bin/startup.sh
 ExecStop=/bin/kill -15 $MAINPID

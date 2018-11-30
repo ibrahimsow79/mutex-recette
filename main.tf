@@ -26,8 +26,6 @@ module "vpc" {
   aws_az_public  = "${var.aws_az_public}"
 }
 
-
-/*
 module "bastion" {
   source = "ec2/bastion"
 
@@ -59,7 +57,7 @@ module "backend1" {
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Server API 1"
-  private_ip        = "10.0.2.10"
+  private_ip        = "${var.private_ip_backend1}"
   instance_type     = "t2.medium"
 }
 
@@ -72,7 +70,7 @@ module "backend1" {
 #  private_subnet_id = "${module.vpc.private_subnet_id}"
 #  key_pair          = "${aws_key_pair.default.id}"
 #  name              = "Server API 2"
-#  private_ip        = "10.0.2.11"
+#  private_ip        = "${var.private_ip_backend1}"
 #  instance_type     = "t2.medium"
 #}
 
@@ -85,7 +83,7 @@ module "gateway" {
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Gateway API"
-  private_ip        = "10.0.2.5"
+  private_ip        = "${var.private_ip_gateway}"
 }
 
 module "database" {
@@ -97,9 +95,9 @@ module "database" {
   private_subnet_id = "${module.vpc.subnet_datastore}"
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Database 1"
-  private_ip        = "10.0.3.10"
+  private_ip        = "${var.private_ip_database}"
 }
- 
+/* 
 module "nsi" {
   source = "ec2/nsi"
 
@@ -107,7 +105,7 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
-
+*/
 module "sso" {
   source = "ec2/backend"
 
@@ -117,7 +115,7 @@ module "sso" {
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Server SSO"
-  private_ip        = "10.0.2.6"
+  private_ip        = "${var.private_ip_sso}"
   script            = "script/sso/install.sh"
   instance_type     = "t2.medium"
 }
@@ -131,9 +129,9 @@ module "ci" {
   private_subnet_id     = "${module.vpc.subnet_ci}"
   key_pair              = "${aws_key_pair.default.id}"
   name                  = "Server CI"
-  private_ip            = "10.0.5.5"
+  private_ip            = "${var.private_ip_ci}"
   script                = "script/ci/install.sh"
-  delete_on_terminaison = false
+  delete_on_termination = false
   instance_type         = "t2.large"
   ebs_size              = "200"
 }
@@ -148,10 +146,9 @@ module "gitlab" {
   private_subnet_id     = "${module.vpc.subnet_ci}"
   key_pair              = "${aws_key_pair.default.id}"
   name                  = "Server Gitlab"
-  private_ip            = "10.0.5.6"
+  private_ip            = "${var.private_ip_gitlab}"
   script                = "script/gitlab/install.sh"
-  delete_on_terminaison = false
+  delete_on_termination = false
   instance_type         = "t2.medium"
   ebs_size              = "100"
 }
-*/

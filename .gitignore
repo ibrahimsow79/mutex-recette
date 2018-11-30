@@ -28,3 +28,4 @@ override.tf.json
 # !example_override.tf
 
 .ssh
+modifications.txt

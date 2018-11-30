@@ -27,7 +27,7 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 #Installation Mysql
-sudo mkdir /data/mysql
+sudo mkdir /data/mysqlsudo
 
 sudo docker pull mysql/mysql-server:8.0.12
 
@@ -59,4 +59,10 @@ sudo echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 sudo docker logs mysql | grep GENERATED >sql_password.txt
 sudo  awk '/GENERATED ROOT PASSWORD/{print $NF}' sql_password.txt | xargs -I '{}' docker exec mysql mysql -uroot -p{} --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'"
 sudo  docker exec mysql mysql -uroot -ppassword -e "CREATE USER 'developper'@'%' IDENTIFIED BY 'p@ssword?';GRANT ALL PRIVILEGES ON * . * TO 'developper'@'%';FLUSH PRIVILEGES;"
+
+#Création des bases des BDs souscription copnsultation et telechargement
+
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `telechargement-dev`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `consultation-dev`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-dev`'
 
