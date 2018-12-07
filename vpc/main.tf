@@ -116,7 +116,7 @@ resource "aws_route_table_association" "web-public-rt" {
 # Create NAT for accessing to internet from the private subnet
 resource "aws_eip" "nat-gateway-api" {
   vpc                       = true
-  associate_with_private_ip = "10.0.1.5"
+  associate_with_private_ip = "10.50.1.5"
   tags {
     Name          = "EIP for NAT"
     location      = "paris"
@@ -175,14 +175,26 @@ resource "aws_security_group" "sg_bastion" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["62.129.10.227/32"]
   }
-
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["62.129.10.163/32"]
+  }
+  
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["62.129.10.227/32"]
+  }
+   ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["62.129.10.163/32"]
   }
 
   ingress {
@@ -196,8 +208,16 @@ resource "aws_security_group" "sg_bastion" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["62.129.10.227/32"]
   }
+  
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["62.129.10.162/32"]
+  } 
+
   
   ingress {
     from_port   = 22
@@ -484,7 +504,7 @@ resource "aws_security_group" "sg_ci" {
   tags {
     Name          = "sg ci "
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }

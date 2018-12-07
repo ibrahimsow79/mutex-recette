@@ -5,12 +5,21 @@ provider "aws" {
   profile = "${var.my_profile}"
 }
 
+
 # Define SSH key pair for our instances
 resource "aws_key_pair" "default" {
   key_name   = "vpc_keypair"
   public_key = "${file("${var.key_path}")}"
 }
 
+# Mettre le fichier tfstate sur S3 : mutex-er-admin- - Terraform ne permet dpas la variabilisation du backend
+terraform {
+  backend "s3" {
+  bucket = "mutex-er-recette-configuration"
+  key    = "mutex/main/terraform.tfstate"
+  region =  "eu-west-3"
+  }
+}
 
 data "aws_iam_role" "iam-read-s3" {
   name = "aws-s3-read-policy"
@@ -120,6 +129,8 @@ module "sso" {
   instance_type     = "t2.medium"
 }
 
+# pour le ci et le gitlab j'ai enlevé "Delete on termination = false" Bizarre delete_on_termination=true pose problème.
+
 module "ci" {
   source = "ec2/backend"
 
@@ -131,7 +142,6 @@ module "ci" {
   name                  = "Server CI"
   private_ip            = "${var.private_ip_ci}"
   script                = "script/ci/install.sh"
-  delete_on_termination = false
   instance_type         = "t2.large"
   ebs_size              = "200"
 }
@@ -148,7 +158,6 @@ module "gitlab" {
   name                  = "Server Gitlab"
   private_ip            = "${var.private_ip_gitlab}"
   script                = "script/gitlab/install.sh"
-  delete_on_termination = false
   instance_type         = "t2.medium"
   ebs_size              = "100"
 }
