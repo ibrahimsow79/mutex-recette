@@ -38,32 +38,32 @@ variable "my_profile" {
 
 variable "private_ip_backend1" {
  description = "private ip for backend1"
- default = "10.50.2.10"
+ default = "10.60.2.10"
 }
 
 variable "private_ip_backend2" {
  description = "private ip for backend2"
- default = "10.50.2.11"
+ default = "10.60.2.11"
 }
 variable "private_ip_gateway" {
  description = "private ip for gateway"
- default = "10.50.2.5"
+ default = "10.60.2.5"
 }
 variable "private_ip_database" {
  description = "private ip for  databse"
- default = "10.50.3.10"
+ default = "10.60.3.10"
 }
 variable "private_ip_sso" {
  description = "private ip for sso "
- default = "10.50.2.6"
+ default = "10.60.2.6"
 }
 variable "private_ip_ci" {
  description = "private ip for ci"
- default = "10.50.5.5"
+ default = "10.60.5.5"
 }
 variable "private_ip_gitlab" {
  description = "private ip for gitlab"
- default = "10.50.5.6"
+ default = "10.60.5.6"
 }
  
  

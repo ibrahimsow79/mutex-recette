@@ -1,16 +1,16 @@
 variable "vpc_cidr" {
   description = "CIDR for the VPC"
-  default     = "10.50.0.0/16"
+  default     = "10.60.0.0/16"
 }
 
 variable "public_subnet_cidr" {
   description = "CIDR for the public subnet"
-  default     = "10.50.1.0/24"
+  default     = "10.60.1.0/24"
 }
 
 variable "private_subnet_cidr" {
   description = "CIDR for the private subnet"
-  default     = "10.50.2.0/24"
+  default     = "10.60.2.0/24"
 }
 
 variable "aws_az_private" {
@@ -66,7 +66,7 @@ variable "ami_id" {
 }
 
 variable "private_ip" {
-  default = "10.50.2.10"
+  default = "10.60.2.10"
 }
 
 variable "script" {

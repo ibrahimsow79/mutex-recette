@@ -22,5 +22,5 @@ variable "sg_nsi_id" {
 
 variable "private_ip" {
   description = "Private IP of the NSI Server"
-  default     = "10.50.4.5"
+  default     = "10.60.4.5"
 }
