@@ -88,7 +88,7 @@ sudo mkdir /data/gitlab/logs
 sudo mkdir /data/gitlab/data
 
 sudo docker run --detach \
-    --publish 8082:80  \
+    --publish 8082:8082  \
     --name gitlab \
     --restart always \
     --volume /data/gitlab/config:/etc/gitlab \

@@ -58,7 +58,7 @@ variable "name" {
 }
 
 variable "ebs_size" {
-  default = "40"
+  default = "60"
 }
 
 variable "instance_name" {
@@ -72,4 +72,7 @@ variable "ami_id" {
 
 variable "private_ip" {
   default = "10.60.3.10"
+}
+variable "delete_on_terminaison" {
+  default = true
 }
