@@ -38,23 +38,33 @@ sudo alternatives --install /usr/bin/javac javac /usr/local/jdk-10/bin/javac 1
 sudo alternatives --set jar /usr/local/jdk-10/bin/jar
 sudo alternatives --set javac /usr/local/jdk-10/bin/javac
 
-#Installation Tomcat
-sudo groupadd tomcat
-sudo useradd -M -s /bin/nologin -g tomcat -d /data/server/tomcat tomcat
-sudo curl http://apache.mediamirrors.org/tomcat/tomcat-8/v8.5.34/bin/apache-tomcat-8.5.34.tar.gz -o apache-tomcat-8.5.34.tar.gz
-sudo tar -xf apache-tomcat-8.5.34.tar.gz
-sudo mkdir /data/server
-sudo mv apache-tomcat-8.5.34 /data/server/apache-tomcat-8.5.34
-sudo chown -R tomcat:tomcat  /data/server/apache-tomcat-8.5.34
-sudo ln -s /data/server/apache-tomcat-8.5.34 /data/server/tomcat
-sudo sed 's/8080/8090/g' /data/server/tomcat/conf/server.xml > /data/server/tomcat/conf/server.xml.tmp
-sudo mv /data/server/tomcat/conf/server.xml.tmp /data/server/tomcat/conf/server.xml
-
-
-#Copie du S3 la configuration
+#Installation Tomcat (I got a big issue as tomcat v8.5.34 did not exist)
 sudo curl -O https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py --user
 sudo /root/.local/bin/pip install awscli --upgrade --user
+
+sudo mkdir /data/server
+sudo groupadd tomcat
+sudo useradd -M -s /bin/nologin -g tomcat -d /data/server/tomcat tomcat
+
+# sudo curl http://apache.mediamirrors.org/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz -o apache-tomcat-8.5.35.tar.gz
+sudo /root/.local/bin/aws s3 cp s3://tomcat-bin/apache-tomcat-8.5.35.tar.gz /apache-tomcat-8.5.35.tar.gz
+
+sudo tar zxvf apache-tomcat-8.5.35.tar.gz -C /data/server
+sudo chown -R tomcat:tomcat  /data/server/apache-tomcat-8.5.35
+sudo ln -s /data/server/apache-tomcat-8.5.35 /data/server/tomcat
+sudo sed 's/8080/8090/g' /data/server/tomcat/conf/server.xml > /data/server/tomcat/conf/server.xml.tmp
+sudo mv /data/server/tomcat/conf/server.xml.tmp /data/server/tomcat/conf/server.xml
+
+# Suite au email de Nicolas du jeudi 15 Novembre : copie du driver mysql
+sudo curl http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar -o /data/server/tomcat/lib/mysql-connector-java-8.0.13.jar
+sudo chown tomcat:tomcat /data/server/tomcat/lib/mysql-connector-java-8.0.13.jar 
+
+
+#Copie du S3 la configuration
+# sudo curl -O https://bootstrap.pypa.io/get-pip.py
+# sudo python get-pip.py --user
+# sudo /root/.local/bin/pip install awscli --upgrade --user
 sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/tomcat.service /etc/systemd/system/tomcat.service
 sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/tomcat-users.xml /data/server/apache-tomcat-8.5.34/conf/tomcat-users.xml
 sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/manager-context.xml /data/server/apache-tomcat-8.5.34/webapps/manager/META-INF/context.xml

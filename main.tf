@@ -48,7 +48,6 @@ module "bastion" {
 resource "aws_eip" "bastion_public_ip" {
   instance = "${module.bastion.bastion_id}"
   vpc      = true
-
   tags {
     Name          = "EIP Bastion"
     location      = "paris"
@@ -129,7 +128,6 @@ module "sso" {
   instance_type     = "t2.medium"
 }
 
-# pour le ci et le gitlab j'ai enlevé "Delete on termination = false" Bizarre delete_on_termination=true pose problème.
 
 module "ci" {
   source = "ec2/backend"

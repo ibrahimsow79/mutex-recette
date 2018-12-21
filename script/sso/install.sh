@@ -54,7 +54,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo curl -O https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py --user
 sudo /root/.local/bin/pip install awscli --upgrade --user
-sudo /root/.local/bin/aws s3 cp s3://mutex-er-admin-configuration/sso/keycloak-postgres.yml /data/keycloak-postgres.yml
+sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/sso/keycloak-postgres.yml /data/keycloak-postgres.yml
 
 #Installation KeyCloak
 sudo /usr/local/bin/docker-compose -f /data/keycloak-postgres.yml up
