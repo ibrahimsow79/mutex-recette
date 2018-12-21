@@ -1,0 +1,26 @@
+DECLARE @USER varchar(150)
+DECLARE @NOM varchar(150)
+DECLARE @PRENOM varchar(150)
+
+SET @USER = 'MUTEX\xxxx'
+SET @NOM = 'xxxx'
+SET @PRENOM = 'xxxx'
+
+insert into hab_utilisateur(cdutilisateur, cdtitre, cdlang, nmutilisateur, telutilisateur, sectutilisateur)
+values (@USER, 'M', 'FRA', @NOM, '+33.1.40.40.10.70', 'Mutex');
+
+insert into infos_utilisateur (cdutilisateur, prenom)
+values (@USER, @PRENOM);
+
+insert into hab_utilisateur_role (cdrole, cdutilisateur, noversion )
+values ('ADMINISTRATEURS', @USER,1);
+
+insert into HAB_UTILISATEUR_ROLE_PERIODE (CDUTILISATEUR, CDROLE, NOVERSION, DTDEBUT, DTFIN)
+values (@USER, 'ADMINISTRATEURS', 1, '01/01/1900', null )
+
+
+insert into hab_utilisateur_role (cdrole, cdutilisateur, noversion )
+values ('UNPMF_INT', @USER,1)
+
+insert into HAB_UTILISATEUR_ROLE_PERIODE (CDUTILISATEUR, CDROLE, NOVERSION, DTDEBUT, DTFIN)
+values (@USER, 'UNPMF_INT', 1, '01/01/1900', null )
