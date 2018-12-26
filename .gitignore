@@ -29,3 +29,6 @@ override.tf.json
 
 .ssh
 modifications.txt
+toto
+insert*
+gitlab*
