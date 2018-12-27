@@ -40,7 +40,7 @@ variable "sg_api_id" {}
 
 variable "instance_type" {
   description = "Instance Type"
-  default     = "t2.micro"
+  default     = "t3.medium"
 }
 
 variable "key_pair" {
@@ -53,7 +53,7 @@ variable "name" {
 }
 
 variable "ebs_size" {
-  default = "40"
+  default = "60"
 }
 
 variable "instance_name" {

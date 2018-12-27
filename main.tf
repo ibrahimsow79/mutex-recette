@@ -125,10 +125,10 @@ module "sso" {
   name              = "Server SSO"
   private_ip        = "${var.private_ip_sso}"
   script            = "script/sso/install.sh"
-  instance_type     = "t2.medium"
+  instance_type     = "t3.medium"
 }
 
-
+/*
 module "ci" {
   source = "ec2/backend"
 
@@ -140,7 +140,7 @@ module "ci" {
   name                  = "Server CI"
   private_ip            = "${var.private_ip_ci}"
   script                = "script/ci/install.sh"
-  instance_type         = "t2.large"
+  instance_type         = "t3.large"
   ebs_size              = "200"
 }
 
@@ -156,6 +156,7 @@ module "gitlab" {
   name                  = "Server Gitlab"
   private_ip            = "${var.private_ip_gitlab}"
   script                = "script/gitlab/install.sh"
-  instance_type         = "t2.medium"
+  instance_type         = "t3.medium"
   ebs_size              = "100"
 }
+*/

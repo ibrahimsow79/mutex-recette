@@ -245,7 +245,7 @@ resource "aws_security_group" "sg_bastion" {
   tags {
     Name          = "sg bastion"
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -309,7 +309,7 @@ resource "aws_security_group" "sg_api" {
   tags {
     Name          = "sg api "
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -377,7 +377,7 @@ resource "aws_security_group" "sg_nsi" {
   tags {
     Name          = "sg nsi epargne "
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
@@ -428,7 +428,7 @@ resource "aws_security_group" "sg_datastore" {
   tags {
     Name          = "sg datastore epargne "
     location      = "paris"
-    environnement = "dev"
+    environnement = "${var.env}"
     client        = "mutex"
   }
 }
