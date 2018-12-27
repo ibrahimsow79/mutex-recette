@@ -45,7 +45,7 @@ variable "sg_sgbd_id" {}
 
 variable "instance_type" {
   description = "Instance Type"
-  default     = "t2.micro"
+  default     = "t3.small"
 }
 
 variable "key_pair" {
