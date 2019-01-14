@@ -65,19 +65,6 @@ resource "aws_subnet" "nsi-private-subnet" {
   }
 }
 
-resource "aws_subnet" "ci-private-subnet" {
-  vpc_id            = "${aws_vpc.default.id}"
-  cidr_block        = "${var.ci_subnet_cidr}"
-  availability_zone = "${var.aws_az_private}"
-
-  tags {
-    Name          = "ci private subnet"
-    location      = "paris"
-    environnement = "${var.env}"
-    client        = "mutex"
-  }
-}
-
 # Define the internet gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.default.id}"
@@ -161,10 +148,6 @@ resource "aws_route_table_association" "datastore-subnet-rt" {
   route_table_id = "${aws_route_table.private-subnet-rt.id}"
 }
 
-resource "aws_route_table_association" "ci-subnet-rt" {
-  subnet_id      = "${aws_subnet.ci-private-subnet.id}"
-  route_table_id = "${aws_route_table.private-subnet-rt.id}"
-}
 
 # Define the security group for public subnet
 resource "aws_security_group" "sg_bastion" {
