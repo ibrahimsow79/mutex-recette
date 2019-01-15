@@ -66,21 +66,8 @@ module "backend1" {
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Server API 1"
   private_ip        = "${var.private_ip_backend1}"
-  instance_type     = "t2.medium"
+  instance_type     = "t3.xlarge"
 }
-
-#module "backend2" {
-#  source = "ec2/backend"
-
-#  sg_bastion_id     = "${module.vpc.sg_bastion_id}"
-#  sg_api_id         = "${module.vpc.sg_api}"
-#  public_subnet_id  = "${module.vpc.public_subnet_id}"
-#  private_subnet_id = "${module.vpc.private_subnet_id}"
-#  key_pair          = "${aws_key_pair.default.id}"
-#  name              = "Server API 2"
-#  private_ip        = "${var.private_ip_backend1}"
-#  instance_type     = "t2.medium"
-#}
 
 module "gateway" {
   source = "ec2/backend"
@@ -105,15 +92,7 @@ module "database" {
   name              = "Database 1"
   private_ip        = "${var.private_ip_database}"
 }
-/* 
-module "nsi" {
-  source = "ec2/nsi"
 
-  sg_nsi_id     = "${module.vpc.sg_nsi}"
-  subnet_nsi_id = "${module.vpc.subnet_nsi}"
-  key_pair      = "${aws_key_pair.default.id}"
-}
-*/
 module "sso" {
   source = "ec2/backend"
 
@@ -128,35 +107,12 @@ module "sso" {
   instance_type     = "t3.medium"
 }
 
-/*
-module "ci" {
-  source = "ec2/backend"
+/* 
+module "nsi" {
+  source = "ec2/nsi"
 
-  sg_bastion_id         = "${module.vpc.sg_bastion_id}"
-  sg_api_id             = "${module.vpc.sg_ci}"
-  public_subnet_id      = "${module.vpc.public_subnet_id}"
-  private_subnet_id     = "${module.vpc.subnet_ci}"
-  key_pair              = "${aws_key_pair.default.id}"
-  name                  = "Server CI"
-  private_ip            = "${var.private_ip_ci}"
-  script                = "script/ci/install.sh"
-  instance_type         = "t3.large"
-  ebs_size              = "200"
-}
-
-
-module "gitlab" {
-  source = "ec2/backend"
-
-  sg_bastion_id         = "${module.vpc.sg_bastion_id}"
-  sg_api_id             = "${module.vpc.sg_ci}"
-  public_subnet_id      = "${module.vpc.public_subnet_id}"
-  private_subnet_id     = "${module.vpc.subnet_ci}"
-  key_pair              = "${aws_key_pair.default.id}"
-  name                  = "Server Gitlab"
-  private_ip            = "${var.private_ip_gitlab}"
-  script                = "script/gitlab/install.sh"
-  instance_type         = "t3.medium"
-  ebs_size              = "100"
+  sg_nsi_id     = "${module.vpc.sg_nsi}"
+  subnet_nsi_id = "${module.vpc.subnet_nsi}"
+  key_pair      = "${aws_key_pair.default.id}"
 }
 */
