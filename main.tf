@@ -66,7 +66,7 @@ module "backend1" {
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Server API 1"
   private_ip        = "${var.private_ip_backend1}"
-  instance_type     = "t3.xlarge"
+  instance_type     = "t2.2xlarge"
 }
 
 module "gateway" {
