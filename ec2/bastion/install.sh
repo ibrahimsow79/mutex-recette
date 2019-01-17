@@ -14,8 +14,8 @@ sudo usermod -aG wheel nrousseau1
 sudo usermod -aG adm nrousseau1
 
 #Suite au email de Nicloas Rousseau ajout de l'utilsateur web-data
-sudo useradd web-data && mkdir /home/web-data/.ssh && chown 700 /home/web-data/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAkKuQQg1jn6PJhvG2PmJXdm3rCC0ueQ0l7kDWsxVDxJyEzko3Q8dJ3XC/a3so6Zsdx5udVOGPowyacQ72FpoBk55f4ruJHOV0+7KNSOKy2uxNSc+HbGURvyAtlv4tAVRdi8/d1mDn5TwqMjUmpojbV7zJ3DdaQn2q44GQqePObxzU96SldLuTQPbXN+9M0GJ34bGyI2b41ng91yoUwHMtd0m3Dm80ikCTm4qxx2f83sQ2tjD4gUrlkJlnqo4X2oS3lPhpAs6hwgtcKbdqfXz7rGgnfOou36Cq+QLrrI0ocGVmDY9ur0hFU8onuFejFdHQqrqz1gmuPk3b362VNAe6jQ==" > /home/web-data/.ssh/authorized_key
-sudo mkdir -p /home/web-data/www/r6m6WgkpR7foVcIMQH1FkuNmybpCyfLHa5sVC7S16f9e
+sudo useradd web-data && mkdir /home/web-data/.ssh && chown 700 /home/web-data/.ssh && echo ""rsa-key-20190116"AAAAB3NzaC1yc2EAAAABJQAAAQEA0bGpAYHWJVm3bH2XU7zyvDWjG45fi5IeeEUNj/IagaE9ImcvZPRPdVBG/HhuVvHqlff8PRG1fCd50DYTA/3XygonGOT9LedxAv+Dhkw1EiJtyR4ZqG/sSvrRvTUQZJujTn7nRuEGh5wLLlLmTPxXcZiHULKxrzhckv4xEaTdIkr1K0hdeyd+fp7rmA22toZ2PqClOe1SJ75eBgM+jcuQ67VN9BBqDqIRCHAFyPfHBZU2Gu5JD8YGz/Ptcn+8aayS6gywEOxGnxRbE3NwEGAiPPURlr5vW+Nr3wP1LsJnv1lESWuYVmO7M6xBXsrLO9/YpkO7ma/iWITLDXz4NOFhBw==" > /home/web-data/.ssh/authorized_key
+sudo mkdir -p /home/web-data/www/
 chmod -R o+rx /home/web-data
 
 # Ajout du groupe wheel pour faire un sudo sans qu'on leur réclame un password

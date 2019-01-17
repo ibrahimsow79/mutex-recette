@@ -50,20 +50,13 @@ variable "private_ip_gateway" {
  default = "10.60.2.5"
 }
 variable "private_ip_database" {
- description = "private ip for  databse"
+ description = "private ip for  database"
  default = "10.60.3.10"
 }
 variable "private_ip_sso" {
  description = "private ip for sso "
  default = "10.60.2.6"
 }
-variable "private_ip_ci" {
- description = "private ip for ci"
- default = "10.60.5.5"
-}
-variable "private_ip_gitlab" {
- description = "private ip for gitlab"
- default = "10.60.5.6"
-}
+
  
  

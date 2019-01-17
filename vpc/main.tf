@@ -159,12 +159,14 @@ resource "aws_security_group" "sg_bastion" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["62.129.10.227/32"]
+	description = "IP Publique Mutex"
   }
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["62.129.10.163/32"]
+	description = "IP Publique Mutex"
   }
   
   ingress {
@@ -172,12 +174,14 @@ resource "aws_security_group" "sg_bastion" {
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["62.129.10.227/32"]
+	description = "IP Publique Mutex"
   }
    ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["62.129.10.163/32"]
+	description = "IP Publique Mutex"
   }
 
   ingress {
@@ -192,37 +196,28 @@ resource "aws_security_group" "sg_bastion" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["62.129.10.227/32"]
+	description = "IP Publique Mutex"
   }
-  
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["62.129.10.162/32"]
+	description = "IP Publique Mutex"
   } 
-
-  
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = -1
+    to_port     = -1
     protocol    = "tcp"
-    cidr_blocks = ["77.129.195.213/32"]
+    cidr_blocks = ["10.0.0.0/16"]
+	description = "Security Group Peering environnement Dev"
   }
-  
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["77.158.139.114/32"]
-  }
-  
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
   vpc_id = "${aws_vpc.default.id}"
 
   tags {
@@ -278,6 +273,13 @@ resource "aws_security_group" "sg_api" {
     to_port     = 8090
     protocol    = "tcp"
     cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+   ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+	description = "Security Group Peering environnement Dev"
   }
 
   egress {
@@ -347,6 +349,13 @@ resource "aws_security_group" "sg_nsi" {
     protocol    = "icmp"
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
+   ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+	description = "Security Group Peering environnement Dev"
+  }
 
   egress {
     from_port   = 0
@@ -405,89 +414,21 @@ resource "aws_security_group" "sg_datastore" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+   ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+	description = "Security Group Peering environnement Dev"
+  }
 
   vpc_id = "${aws_vpc.default.id}"
 
   tags {
-    Name          = "sg datastore epargne "
+    Name          = "sg datastore epargne"
     location      = "paris"
     environnement = "${var.env}"
     client        = "mutex"
   }
 }
 
-resource "aws_security_group" "sg_ci" {
-  name        = "sg_ci"
-  description = "Allow traffic from DMZ"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-  }
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-    description = "Jenkins Port"
-  }
-
-  ingress {
-    from_port   = 8081
-    to_port     = 8081
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-    description = "Nexus Port"
-  }
-
-  ingress {
-    from_port   = 8082
-    to_port     = 8082
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-    description = "gitlab Port"
-  }
-
-  ingress {
-    from_port   = 9000
-    to_port     = 9000
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-    description = ""
-  }
-
-  ingress {
-    from_port   = 9092
-    to_port     = 9092
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-    description = ""
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnet_cidr}"]
-    description = "Traefik"
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  vpc_id = "${aws_vpc.default.id}"
-
-  tags {
-    Name          = "sg ci "
-    location      = "paris"
-    environnement = "${var.env}"
-    client        = "mutex"
-  }
-}
