@@ -206,8 +206,8 @@ resource "aws_security_group" "sg_bastion" {
 	description = "IP Publique Mutex"
   } 
   ingress {
-    from_port   = -1
-    to_port     = -1
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
 	description = "Security Group Peering environnement Dev"
@@ -275,8 +275,8 @@ resource "aws_security_group" "sg_api" {
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
    ingress {
-    from_port   = -1
-    to_port     = -1
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
 	description = "Security Group Peering environnement Dev"
@@ -350,8 +350,8 @@ resource "aws_security_group" "sg_nsi" {
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
    ingress {
-    from_port   = -1
-    to_port     = -1
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
 	description = "Security Group Peering environnement Dev"
@@ -415,8 +415,8 @@ resource "aws_security_group" "sg_datastore" {
     cidr_blocks = ["0.0.0.0/0"]
   }
    ingress {
-    from_port   = -1
-    to_port     = -1
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
 	description = "Security Group Peering environnement Dev"
