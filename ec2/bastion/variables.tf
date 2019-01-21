@@ -7,6 +7,10 @@ variable "public_subnet_cidr" {
   description = "CIDR for the public subnet"
   default     = "10.60.1.0/24"
 }
+variable "private_ip" {
+  description = "Private IP for Bastion"
+  default     = "10.60.1.10"
+}
 
 variable "private_subnet_cidr" {
   description = "CIDR for the private subnet"

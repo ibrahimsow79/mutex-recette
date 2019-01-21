@@ -36,6 +36,11 @@ variable "my_profile" {
  default = "mutex-er-recette"
 }
 
+variable "private_ip_bastion" {
+ description = "private ip for bastion"
+ default = "10.60.1.10"
+}
+
 variable "private_ip_backend1" {
  description = "private ip for backend1"
  default = "10.60.2.10"

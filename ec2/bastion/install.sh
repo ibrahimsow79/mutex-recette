@@ -14,8 +14,9 @@ sudo usermod -aG wheel nrousseau1
 sudo usermod -aG adm nrousseau1
 
 #Suite au email de Nicloas Rousseau ajout de l'utilsateur web-data
-sudo useradd web-data && mkdir /home/web-data/.ssh && chown 700 /home/web-data/.ssh && echo "rsa-key-20190116AAAAB3NzaC1yc2EAAAABJQAAAQEA0bGpAYHWJVm3bH2XU7zyvDWjG45fi5IeeEUNj/IagaE9ImcvZPRPdVBG/HhuVvHqlff8PRG1fCd50DYTA/3XygonGOT9LedxAv+Dhkw1EiJtyR4ZqG/sSvrRvTUQZJujTn7nRuEGh5wLLlLmTPxXcZiHULKxrzhckv4xEaTdIkr1K0hdeyd+fp7rmA22toZ2PqClOe1SJ75eBgM+jcuQ67VN9BBqDqIRCHAFyPfHBZU2Gu5JD8YGz/Ptcn+8aayS6gywEOxGnxRbE3NwEGAiPPURlr5vW+Nr3wP1LsJnv1lESWuYVmO7M6xBXsrLO9/YpkO7ma/iWITLDXz4NOFhBw==" > /home/web-data/.ssh/authorized_key
-sudo mkdir -p /home/web-data/www/
+sudo useradd web-data && mkdir /home/web-data/.ssh && chown 700 /home/web-data/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4HsdsnkNa/Czac5duRGzD39BcFFd7407kY7s1dRfGBabccv7UXNyjRJ1weMxYpj5GWwv0AXxA9Se4rndysM2jELWFGNE8OxHZJE8SXB3dU+yjlT03na6SGk87OKmEEAYO5Q1PXkwfrhUZbLkPRyoZukbU72W9O9gznFFas+HEsCDkTaPhmwfVlOWHDzqFQj7Q3cSMrJu+1sErh1yyir/uweruuC4u5hqYutm9KDdNXH2EYFlPFf5l5rr7A0nvOJEF5nDk2INQTM5VB8TJJ7JbaCNijVpc2ixj1kxSwt5c8hKM8rBMpilMNB+gkk0inWo3Jxv4rn076mOba8NuMTPio/9ukUDl2UcOJkmXpAJdcC9IdnNLNH0z9bROej999bUVolcMn4DaGq+LDaVXW6cEMRl3/k0hy5PJ5J9j2/AawjElD4uNAPAndgNxVmU1Dc2CZ0b/Z5lrAmUAx2tOHw76tgN2BTdYKSgkEIPif+ygcOIurh5QZYY3U5W2IUouAoNmuehFKZ8gPS6DRBcnq9uLJ5V9TjcVOcUSQp3cziZ6zJYIp161zIo0QGxmNj/lALke++2gCETul2jxyLxiFjdtXmJwo6nxeky2caMg0j4P1YR0fq/mJKMW5fokwFnovdstSbN0RlaY7zgNIgT1bmwOHixFd89GJdgUDlsfEqz8JQ== ibrahim.sow@mutex-exterieur.fr" > /home/web-data/.ssh/authorized_keys && chmod 600 /home/web-data/.ssh/authorized_keys && chown -R web-data:web-data /home/web-data
+#sudo useradd web-data && mkdir /home/web-data/.ssh && chown 700 /home/web-data/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAh4LWelKXVRj5YGyc26kARb/bELfJ8rXNpi3/JNVvZVCmn1bKDTRBLWSOS2ts6wbE1IUxPrlraCsvYj9qv2NrgbpZms5WtPGlOLOwDP5vZZNQvSPFrGajuWO5ixAjqyTtZUrpSCORmk4ZAB2WHqob8XU5nHVDmp+Efe2D1ZLz1rtf9RYYBdgyj0R3yEyM8Dv3cTXtgjD/mfBQ6k9GN1veEFhdCpxxLYOZRzeALg9bHWRw1ZmK7pHURrayNHmkxMJwu5935KU8bgiKhlQul8f6eiO6UpjrfAPFwB8nO7ogMoHxlFedGrXlxtzzgSaM1OX+jFq0UcXFYQTmQEDw03s1Q== web-data" > /home/web-data/.ssh/authorized_key
+sudo mkdir -p /home/web-data/www
 chmod -R o+rx /home/web-data
 
 # Ajout du groupe wheel pour faire un sudo sans qu'on leur réclame un password
