@@ -104,7 +104,7 @@ module "sso" {
   name              = "Server SSO"
   private_ip        = "${var.private_ip_sso}"
   script            = "script/sso/install.sh"
-  instance_type     = "t3.medium"
+  instance_type     = "t2.medium"
 }
 
 /* 

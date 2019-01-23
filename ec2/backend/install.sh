@@ -65,10 +65,12 @@ sudo chown tomcat:tomcat /data/server/tomcat/lib/mysql-connector-java-8.0.13.jar
 # sudo curl -O https://bootstrap.pypa.io/get-pip.py
 # sudo python get-pip.py --user
 # sudo /root/.local/bin/pip install awscli --upgrade --user
+sudo yum -y install unzip
 sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/tomcat.service /etc/systemd/system/tomcat.service
 sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/tomcat-users.xml /data/server/apache-tomcat-8.5.35/conf/tomcat-users.xml
 sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/tomcat/manager-context.xml /data/server/apache-tomcat-8.5.35/webapps/manager/META-INF/context.xml
-
+sudo /root/.local/bin/aws s3 cp s3://mutex-er-recette-configuration/configuration.zip /data/configuration.zip
+sudo unzip /data/configuration.zip -d /data/
 
 sudo systemctl daemon-reload
 sudo systemctl start tomcat

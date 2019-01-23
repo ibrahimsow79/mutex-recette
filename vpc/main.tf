@@ -76,6 +76,26 @@ resource "aws_internet_gateway" "gw" {
     client        = "mutex"
   }
 }
+/* Changer le script sans oublier de faire un import : terraform import aws_vpc_peering_connection.peering-recette pcx-0adfefd0a0f189da5
+
+# Define the VPC Peering Connection with the Dev Environment
+resource "aws_vpc_peering_connection" "peering-recette" {
+  peer_owner_id = "${var.peer_owner_id}"
+  peer_vpc_id   = "${aws_vpc.bar.id}"
+  vpc_id        = "${aws_vpc.foo.id}"
+  peer_region   = "eu-west-3"
+}
+
+resource "aws_vpc" "foo" {
+  provider   = "aws.us-west-2"
+  cidr_block = "10.1.0.0/16"
+}
+
+resource "aws_vpc" "bar" {
+  provider   = "aws.us-east-1"
+  cidr_block = "10.2.0.0/16"
+}
+*/
 
 # Define the route table
 resource "aws_route_table" "web-public-rt" {

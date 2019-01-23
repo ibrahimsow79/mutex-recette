@@ -45,15 +45,11 @@ variable "private_ip_backend1" {
  description = "private ip for backend1"
  default = "10.60.2.10"
 }
-
-variable "private_ip_backend2" {
- description = "private ip for backend2"
- default = "10.60.2.11"
-}
 variable "private_ip_gateway" {
  description = "private ip for gateway"
  default = "10.60.2.5"
 }
+
 variable "private_ip_database" {
  description = "private ip for  database"
  default = "10.60.3.10"

@@ -40,7 +40,7 @@ variable "sg_api_id" {}
 
 variable "instance_type" {
   description = "Instance Type"
-  default     = "t3.medium"
+  default     = "t2.medium"
 }
 
 variable "key_pair" {
