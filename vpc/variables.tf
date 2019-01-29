@@ -33,7 +33,10 @@ variable "aws_az_private" {
   description = "AZ for Private Subnet"
   default     = "eu-west-3b"
 }
-
+variable "ip_vpc_dev" {
+  description = "CIDR for the dev VPC"
+  default     = "10.0.0.0/16"
+}
 variable "aws_az_public" {
   description = "AZ for Public Subnet"
   default     = "eu-west-3b"

@@ -66,7 +66,7 @@ module "backend1" {
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Server API 1"
   private_ip        = "${var.private_ip_backend1}"
-  instance_type     = "t2.2xlarge"
+  instance_type     = "t3.2xlarge"
 }
 
 module "gateway" {
@@ -104,7 +104,7 @@ module "sso" {
   name              = "Server SSO"
   private_ip        = "${var.private_ip_sso}"
   script            = "script/sso/install.sh"
-  instance_type     = "t2.medium"
+  instance_type     = "t3.medium"
 }
 
 /* 
