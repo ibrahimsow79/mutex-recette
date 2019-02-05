@@ -66,4 +66,5 @@ sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `telechargeme
 sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `consultation-dev`'
 sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-dev`'
 sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-ifc-dev`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `referentiel-dev`'
 

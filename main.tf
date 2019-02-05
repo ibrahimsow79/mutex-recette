@@ -107,7 +107,6 @@ module "sso" {
   instance_type     = "t3.medium"
 }
 
-/* 
 module "nsi" {
   source = "ec2/nsi"
 
@@ -115,4 +114,3 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
-*/

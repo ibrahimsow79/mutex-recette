@@ -1,6 +1,6 @@
 variable "ami" {
   description = "Windows NSI Epargne"
-  default     = "ami-0aba22e4ae1962730"
+  default     = "ami-00eaaf6d9dba21fa4"
 }
 
 variable "subnet_nsi_id" {
@@ -9,7 +9,7 @@ variable "subnet_nsi_id" {
 
 variable "instance_type" {
   description = "Instance Type"
-  default     = "t2.medium"
+  default     = "t3.large"
 }
 
 variable "key_pair" {
