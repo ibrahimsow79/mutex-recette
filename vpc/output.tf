@@ -10,7 +10,7 @@ output "private_subnet_id" {
   value = "${aws_subnet.api-private-subnet.id}"
 }
 
-output "sg_api" {
+output "sg_api_id" {
   value = "${aws_security_group.sg_api.id}"
 }
 

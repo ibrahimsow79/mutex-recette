@@ -39,7 +39,7 @@ module "bastion" {
   source = "ec2/bastion"
 
   sg_bastion_id     = "${module.vpc.sg_bastion_id}"
-  sg_sgbd_id        = "${module.vpc.sg_api}"
+  sg_sgbd_id        = "${module.vpc.sg_api_id}"
   public_subnet_id  = "${module.vpc.public_subnet_id}"
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
@@ -60,7 +60,7 @@ module "backend1" {
   source = "ec2/backend"
 
   sg_bastion_id     = "${module.vpc.sg_bastion_id}"
-  sg_api_id         = "${module.vpc.sg_api}"
+  sg_api_id         = "${module.vpc.sg_api_id}"
   public_subnet_id  = "${module.vpc.public_subnet_id}"
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
@@ -68,19 +68,19 @@ module "backend1" {
   private_ip        = "${var.private_ip_backend1}"
   instance_type     = "t3.2xlarge"
 }
-
+/*
 module "gateway" {
   source = "ec2/backend"
 
   sg_bastion_id     = "${module.vpc.sg_bastion_id}"
-  sg_api_id         = "${module.vpc.sg_api}"
+  sg_api_id         = "${module.vpc.sg_api_id}"
   public_subnet_id  = "${module.vpc.public_subnet_id}"
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
   name              = "Gateway API"
   private_ip        = "${var.private_ip_gateway}"
 }
-
+*/
 module "database" {
   source = "ec2/database"
 
@@ -94,17 +94,13 @@ module "database" {
 }
 
 module "sso" {
-  source = "ec2/backend"
+  source = "ec2/sso"
 
   sg_bastion_id     = "${module.vpc.sg_bastion_id}"
-  sg_api_id         = "${module.vpc.sg_api}"
+  sg_api_id			= "${module.vpc.sg_api_id}"
   public_subnet_id  = "${module.vpc.public_subnet_id}"
   private_subnet_id = "${module.vpc.private_subnet_id}"
   key_pair          = "${aws_key_pair.default.id}"
-  name              = "Server SSO"
-  private_ip        = "${var.private_ip_sso}"
-  script            = "script/sso/install.sh"
-  instance_type     = "t3.medium"
 }
 
 module "nsi" {
