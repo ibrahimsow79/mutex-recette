@@ -30,7 +30,7 @@ variable "ami" {
 
 variable "env" {
  description = "environnement : prod, dev, int,rec"
- default = "dev"
+ default = "rec"
 }
 
 variable "sg_bastion_id" {
@@ -45,7 +45,7 @@ variable "sg_sgbd_id" {}
 
 variable "instance_type" {
   description = "Instance Type"
-  default     = "t3.small"
+  default     = "t2.small"
 }
 
 variable "key_pair" {
@@ -58,7 +58,7 @@ variable "name" {
 }
 
 variable "ebs_size" {
-  default = "60"
+  default = "100"
 }
 
 variable "instance_name" {

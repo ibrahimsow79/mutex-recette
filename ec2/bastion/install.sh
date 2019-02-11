@@ -38,10 +38,9 @@ sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/tomcat1.conf /etc/nginx
 sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/traefik.conf /etc/nginx/default.d/traefik.conf
 sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/nsi.conf /etc/nginx/default.d/nsi.conf
 sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/keycloak.conf /etc/nginx/default.d/keycloak.conf
-sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/ci.conf /etc/nginx/default.d/ci.conf
 sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/nginx.conf /etc/nginx/nginx.conf
 
-sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/ihm.conf /etc/nginx/ihm.conf
+sudo aws s3 cp s3://mutex-er-recette-configuration/nginx/ihm.conf /etc/nginx/default.d/ihm.conf
 
 
 

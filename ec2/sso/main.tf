@@ -4,7 +4,7 @@ resource "aws_instance" "sso" {
   key_name               = "${var.key_pair}"
   subnet_id              = "${var.private_subnet_id}"
   private_ip			 = "${var.private_ip}"
-  vpc_security_group_ids = ["${var.sg_bastion_id}"]
+  vpc_security_group_ids = ["${var.sg_api_id}"]
   iam_instance_profile   = "aws-s3-read-policy"
   source_dest_check      = false
 

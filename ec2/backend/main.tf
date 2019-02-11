@@ -9,14 +9,18 @@ resource "aws_instance" "backend" {
   user_data              = "${file(var.script)}"
   iam_instance_profile   = "aws-s3-read-policy"
   private_ip             = "${var.private_ip}"
-
+  root_block_device = {
+	volume_size			= "${var.ebs_size}"
+    }
+  
+/*
   ebs_block_device = {
     device_name           = "/dev/sdg"
     volume_size           = "${var.ebs_size}"
     volume_type           = "gp2"
     delete_on_termination = "${var.delete_on_terminaison}"
   }
-
+*/
   tags {
     Name          = "${var.name}"
     location      = "paris"

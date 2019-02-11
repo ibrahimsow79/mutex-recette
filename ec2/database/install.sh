@@ -2,11 +2,11 @@
 sudo yum update -y
 
 #Mount Disk
-sudo mkfs -t ext4 /dev/xvdg
+# sudo mkfs -t ext4 /dev/xvdg
 sudo mkdir /data
-sudo mount /dev/xvdg /data
-sudo su
-sudo echo "/dev/xvdg    /data    ext4     defaults    0 2 " >> /etc/fstab
+# sudo mount /dev/xvdg /data
+# sudo su
+# sudo echo "/dev/xvdg    /data    ext4     defaults    0 2 " >> /etc/fstab
 
 #Installation Docker
 sudo mkdir /data/docker
@@ -27,7 +27,7 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 #Installation Mysql
-sudo mkdir /data/mysqlsudo
+sudo mkdir /data/mysql
 
 sudo docker pull mysql/mysql-server:8.0.12
 
@@ -67,4 +67,5 @@ sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `consultation
 sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-dev`'
 sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-ifc-dev`'
 sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `referentiel-dev`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `demande-dev`'
 

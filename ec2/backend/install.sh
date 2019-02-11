@@ -20,11 +20,11 @@ sudo usermod -aG adm nrousseau1
 sudo echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 
 #Mount Disk
-sudo mkfs -t ext4 /dev/xvdg
+# sudo mkfs -t ext4 /dev/xvdg
 sudo mkdir /data
-sudo mount /dev/xvdg /data
-sudo su
-sudo echo "/dev/xvdg    /data    ext4     defaults    0 2 " >> /etc/fstab
+# sudo mount /dev/xvdg /data
+# sudo su
+# sudo echo "/dev/xvdg    /data    ext4     defaults    0 2 " >> /etc/fstab
 
 #Installation openjdk 10
 sudo curl https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz -o openjdk-10.0.2_linux-x64_bin.tar.gz

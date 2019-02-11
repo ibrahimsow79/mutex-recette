@@ -53,7 +53,7 @@ variable "name" {
 }
 
 variable "ebs_size" {
-  default = "60"
+  default = "150"
 }
 
 variable "instance_name" {
@@ -78,5 +78,5 @@ variable "delete_on_terminaison" {
 }
 variable "env" {
  description = "environnement : prod, dev, int,rec"
- default = "dev"
+ default = "rec"
 }
