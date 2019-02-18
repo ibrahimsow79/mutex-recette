@@ -11,7 +11,7 @@ resource "aws_instance" "nsi-epargne" {
   tags {
     Name          = "NSI Epargne"
     location      = "paris"
-    environnement = "dev"
+    environnement = "rec"
     client        = "mutex"
   }
 }
