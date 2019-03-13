@@ -18,7 +18,7 @@ sudo yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum-config-manager --enable docker-ce-edge
 sudo yum install docker-ce -y
-sudo systemctl start docker
+sudo systemctl start dockercreate 
 sudo systemctl stop docker
 sudo sed 's/ExecStart=\/usr\/bin\/dockerd/ExecStart=\/usr\/bin\/dockerd -g \/data\/docker/g' /lib/systemd/system/docker.service > /lib/systemd/system/docker.service.tmp
 sudo mv /lib/systemd/system/docker.service.tmp  /lib/systemd/system/docker.service
@@ -60,12 +60,16 @@ sudo docker logs mysql | grep GENERATED >sql_password.txt
 sudo  awk '/GENERATED ROOT PASSWORD/{print $NF}' sql_password.txt | xargs -I '{}' docker exec mysql mysql -uroot -p{} --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'"
 sudo  docker exec mysql mysql -uroot -ppassword -e "CREATE USER 'developper'@'%' IDENTIFIED BY 'p@ssword?';GRANT ALL PRIVILEGES ON * . * TO 'developper'@'%';FLUSH PRIVILEGES;"
 
+
+# my
+
 #Création des bases des BDs souscription copnsultation et telechargement
 
-sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `telechargement-dev`'
-sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `consultation-dev`'
-sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-dev`'
-sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription-ifc-dev`'
-sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `referentiel-dev`'
-sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `demande-dev`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `telechargement_rec`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `consultation_rec`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription_rec`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `souscription_ifc_rec`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `referentiel_rec`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `demande_rec`'
+sudo docker exec mysql mysql -uroot -ppassword -e 'CREATE DATABASE `contrat_rec`'
 
