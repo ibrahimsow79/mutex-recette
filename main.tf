@@ -1,3 +1,4 @@
+/*
 # Define AWS as our provider
 provider "aws" {
   region = "${var.aws_region}"
@@ -110,3 +111,4 @@ module "nsi" {
   subnet_nsi_id = "${module.vpc.subnet_nsi}"
   key_pair      = "${aws_key_pair.default.id}"
 }
+*/
